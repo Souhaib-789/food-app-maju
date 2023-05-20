@@ -1,10 +1,15 @@
 
-import logo from './logo.svg';
 import AppRouter from './router';
+import { Provider } from "react-redux";
+import { myStore } from "./redux/Store/store";
 
 function App() {
+
+ 
   return (
-    <AppRouter />
+    <Provider store={myStore}>
+      <AppRouter />    
+   </Provider>
   );
 }
 

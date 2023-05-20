@@ -1,0 +1,304 @@
+
+.bg_image{
+    height: 600px;
+    width: 100%;
+}
+
+.restaurant_name_view{
+    background-color: white;
+    padding: 5%;
+    position: absolute;
+}
+
+
+body{
+    background-color: var(--light-grey);
+}
+
+.restaurant_name{
+    font-size: 40px;
+    font-weight: 700;
+    background-color: white ;
+    opacity: 0.9;
+    padding: 2% 1%;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 30%;
+    box-shadow: 5px 10px var(--secondary-color);
+}
+
+.second_view{
+    padding: 5% 2%;
+}
+
+
+.sub_heading{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.items_view{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+.card{
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2% 1%;
+    margin: 25px 0px;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  
+  .card_text_view{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+  }
+  
+  .card_title{
+    font-size: var(--heading-b);
+    font-weight: 500;
+    margin: 5% 0%;
+  }
+  
+  .card_image{
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+  }
+  
+  .card_button{
+    background-color: var(--secondary-color);
+    border: none;
+    padding: 3%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    color: azure;
+    margin-top: 5%;
+  }
+
+  .table_image{
+    width: 450px;
+    height: 450px;
+    object-fit: contain;
+  }
+
+  .third_view{
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+  }
+
+  .table_button{
+    width: 200px;
+    height: 50px;
+    background-color: var(--secondary-color);
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5%;
+  }
+
+  .table_button:hover {
+    background-color: transparent;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+  }
+
+  .table_sub_view{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+  }
+  
+  .text{
+    font-size: var(--heading-b);
+  }
+
+  .flexD{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mini_heading{
+    font-size: 25px;
+    font-weight: 500;
+  }
+
+  .review_sub_view{
+    display: flex;
+    flex-direction: column;
+  }
+
+@media screen and (max-width: 768px) {
+}
+
+@media only screen and (max-width: 900px) {
+    .restaurant_name{
+        font-size: 25px;
+        font-weight: 700;
+        background-color: white ;
+        opacity: 0.9;
+        padding: 2% 5%;
+        position: absolute;
+        top: 20%;
+        left: 10%;
+        width: 60%;
+        box-shadow: 5px 10px var(--secondary-color);
+    }
+
+    .items_view{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 5% 7%;
+        margin: 25px 0px;
+        border-radius: 10px;
+        border: none;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+
+      .card_image{
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+      }
+
+      .card_button{
+        background-color: var(--secondary-color);
+        border: none;
+        padding: 3%;
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        border-radius: 5px;
+        color: azure;
+        margin-top: 5%;
+        font-size: 12px;
+      }
+ 
+}
+
+@media only screen and (max-width: 576px) {
+
+    .bg_image{
+        height: 400px;
+        width: 100%;
+    }
+
+    .restaurant_name{
+        font-size: 25px;
+        font-weight: 700;
+        background-color: white ;
+        opacity: 0.9;
+        padding: 2% 5%;
+        position: absolute;
+        top:25%;
+        left: 10%;
+        width: 60%;
+        box-shadow: 5px 10px var(--secondary-color);
+    }
+
+    .sub_heading{
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .second_view{
+        padding: 10% 6%;
+    }
+    
+    .items_view{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 5% 1%;
+        margin: 25px 0px;
+        border-radius: 10px;
+        border: none;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+
+      .card_image{
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+      }
+
+      .card_button{
+        background-color: var(--secondary-color);
+        border: none;
+        padding: 3%;
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        border-radius: 5px;
+        color: azure;
+        margin-top: 5%;
+        font-size: 12px;
+      }
+
+      .card_title{
+        font-size: var(--heading-c);
+        font-weight: 500;
+        margin: 5% 0%;
+      }
+
+      .table_sub_view{
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      .table_image{
+        width: 300px;
+        height: 300px;
+        object-fit: contain;
+      }
+
+      .table_button{
+        width: 130px;
+        height: 40px;
+        background-color: var(--secondary-color);
+        align-items: center;
+        justify-content: center;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        margin-top: 5%;
+        font-size: 12px;
+      }
+}

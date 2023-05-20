@@ -14,15 +14,16 @@ code {
 
 :root {
   --primary-color: #181818;
-  --secondary-color: #f6921e;
+  --secondary-color: #fe043c;
+  --rgba-sec-color: rgba(254,4,60, 0.9);
   --pink-color: #de5d82;
   --l-pink: rgba(222, 93, 130, 0.4);
-  --border-color: rgba(141, 144, 147, 0.2);
+  --border-color: rgba(141, 144, 147, 0.8);
   --background-color: #202020;
   --yellow-color: #f7b82c;
   --white-color: #ffffff;
   --black-color: #000000;
-  --light-grey: #787887;
+  --light-grey: #efeff0;
   --dark-grey: #202020;
   --comment-grey-bg: #f1f1f1;
   --white2: #fcfcfd;

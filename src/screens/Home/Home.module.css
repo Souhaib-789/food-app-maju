@@ -1,12 +1,13 @@
 .main_heading {
   font-size: 45px;
   width: 90%;
-  font-weight: 500;
+  font-weight: bold;
 }
+.main_div{ padding: 10px 130px }
 
 .sub_heading{
   font-size: 30px;
-  font-weight: 500;
+  font-weight: bold;
 }
 .home_view_one {
   display: flex;
@@ -16,9 +17,9 @@
 }
 
 .side_view {
-  background-color: #f6921e;
-  height: 300px;
-  width: 300px;
+  background-color: var(--rgba-sec-color);
+  height: 400px;
+  width: 400px;
   border-radius: 100%;
   display: flex;
   align-items: center;
@@ -26,13 +27,21 @@
 }
 
 .main_image {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   object-fit: contain;
+}
+.restaurant_card{
+  margin: 5% 0%;
+    padding: 10px 40px ;
+border-radius: 5px;
+display: flex;
+flex-direction: column;
+align-self: center;
 }
 
 .main_button {
-  background-color: var(--pink-color);
+  background-color: var(--secondary-color);
   width: 150px;
   height: 50px;
   border: none;
@@ -88,11 +97,13 @@
   justify-content: space-between;
 }
 
-
+.restaurants_view{
+  margin: 10% 0%;
+}
 .home_view_three{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
 
 }
@@ -104,8 +115,8 @@
   padding: 2% 1%;
   margin: 25px 0px;
   border-radius: 10px;
-  border: 1px solid var(--pink-color);
-  box-shadow: 4px 4px var(--pink-color);
+  border: 1px solid var(--secondary-color);
+  box-shadow: 4px 4px var(--secondary-color);
 }
 
 .card_text_view{
@@ -120,14 +131,13 @@
 }
 
 .card_image{
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
-  margin: 0px 10px;
 }
 
 .card_button{
-  background-color: var(--pink-color);
+  background-color: var(--secondary-color);
   border: none;
   padding: 3%;
   border-radius: 5px;
@@ -158,8 +168,104 @@
   width: 170px;
   height: 170px;
   border-radius: 100px;
-  background-color: rgb(62, 118, 221);
+  background-color: var(--secondary-color);
   position: absolute;
   left: 450px;
   /* top: 1000px; */
+}
+
+body{
+  background-color: var(--light-grey);
+}
+
+
+@media screen and (max-width: 768px) {
+}
+
+@media only screen and (max-width: 900px) {
+  .main_div{ padding: 10px 20px }
+
+ .bg_bubble_c{display: none;}
+ 
+}
+
+@media only screen and (max-width: 576px) {
+
+  .main_heading {
+    font-size: 30px;
+    width: 100%;
+    font-weight: bold;
+  }
+
+  .main_div{ padding: 10px 10px }
+
+  .home_view_one {
+    display: flex;
+    flex-direction: column;
+    align-items: normal;
+    margin-bottom: 30%;
+  }
+
+  .flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 90%;
+    padding-top: 5%;
+  }
+
+  .side_view {
+    background-color: var(--rgba-sec-color);
+    height: 300px;
+    width: 300px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+  }
+  
+  .main_image {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+  }
+
+  .sub_heading{
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 10%;
+    margin-bottom: 5%;
+    text-align: center;
+  }
+
+  .home_view_three{
+    display: flex;
+    flex-direction: column;
+  
+  }
+
+  .banner_image{
+    width: 300px;
+    height: 300px;
+    border-top-left-radius: 150px !important;
+    z-index: 1;
+  }
+
+  .home_view_four{
+    display: flex;
+    flex-direction: column;
+    margin: 15% 0%;
+    display: flex;
+    align-items: center;
+  }
+
+  .banner_sub_view{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 10% 0%;
+   text-align: center;
+  }
+
 }
