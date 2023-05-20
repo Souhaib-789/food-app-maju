@@ -1,0 +1,165 @@
+.main_heading {
+  font-size: 45px;
+  width: 90%;
+  font-weight: 500;
+}
+
+.sub_heading{
+  font-size: 30px;
+  font-weight: 500;
+}
+.home_view_one {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.side_view {
+  background-color: #f6921e;
+  height: 300px;
+  width: 300px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main_image {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+}
+
+.main_button {
+  background-color: var(--pink-color);
+  width: 150px;
+  height: 50px;
+  border: none;
+  border-radius: 1px;
+  justify-content: center;
+  color: var(--white-color);
+  margin: 30px 0px;
+  box-shadow: 4px 4px var(--input-icn);
+}
+
+.main_button:hover {
+  box-shadow: 4px 4px var(--secondary-color);
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 40%;
+  padding-top: 5%;
+}
+
+.span {
+  font-size: var(--heading-e);
+  line-height: 25px;
+  color: var(--input-txt);
+  margin: 3% 0%;
+}
+
+.info_card{
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  align-items: flex-start;
+}
+
+.info_card_sub_view{
+  display: flex;
+  flex-direction: column;
+  margin-left: 3%;
+}
+
+.card_heading{
+  font-size: var(--heading-e);
+  font-weight: bold;
+}
+
+.home_view_two{
+    margin: 7% 0%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+
+.home_view_three{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+}
+.card{
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2% 1%;
+  margin: 25px 0px;
+  border-radius: 10px;
+  border: 1px solid var(--pink-color);
+  box-shadow: 4px 4px var(--pink-color);
+}
+
+.card_text_view{
+  display: flex;
+  flex-direction: column;
+}
+
+.card_title{
+  font-size: var(--heading-b);
+  font-weight: 500;
+  margin: 5% 0%;
+}
+
+.card_image{
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin: 0px 10px;
+}
+
+.card_button{
+  background-color: var(--pink-color);
+  border: none;
+  padding: 3%;
+  border-radius: 5px;
+  color: azure;
+  margin-top: 5%;
+}
+
+.home_view_four{
+  display: flex;
+  justify-content: space-between;
+  margin: 10% 0%;
+}
+
+.banner_image{
+  width: 400px;
+  height: 300px;
+  border-top-left-radius: 150px !important;
+  z-index: 1;
+}
+
+.banner_sub_view{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.bg_bubble_c{
+  width: 170px;
+  height: 170px;
+  border-radius: 100px;
+  background-color: rgb(62, 118, 221);
+  position: absolute;
+  left: 450px;
+  /* top: 1000px; */
+}
