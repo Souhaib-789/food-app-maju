@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import MainImage from "../../assets/main_image.png";
 import { AiOutlineFileDone } from "react-icons/ai";
@@ -12,7 +12,17 @@ import Product_Image_d from '../../assets/rest.jfif'
 
 const Home = () => {
   
+  const [restaurants , setrestaurants] = useState([])
 
+  useEffect(() => {
+    fetch('http://localhost:5000/api/restaurants')
+      .then((response) => response.json())
+      .then((json) =>  setrestaurants(json.data))
+    //   .catch((error) => console.error(error))
+    //   .finally(() => setLoading(false));
+  }, []);
+
+  
   const info = [
     {
       id: 1,
@@ -68,7 +78,7 @@ const Home = () => {
             meaningful content.
           </text>
 
-          <button className={styles.main_button}>Learn More</button>
+          <button className={styles.main_button} >Learn More</button>
         </div>
         <div className={styles.side_view} data-aos="fade-left">
           <img src={MainImage} className={styles.main_image} />
@@ -92,33 +102,21 @@ const Home = () => {
         }
       </div> */}
 
-      <div className={styles.restaurants_view}>
+      <div className={styles.restaurants_view} id="pop">
         <text className={styles.sub_heading}>Available Restaurants</text>
         <div className={styles.home_view_three}>
           {
-            items?.map((item, index) => {
+            restaurants?.map((item, index) => {
               return (
                 <div className={styles.restaurant_card}>
                 <img src={item?.image} className={styles.card_image} />
                 <div className={styles.card_text_view}>
-                  <text className={styles.card_title}>Lal Qila Restaurant</text>
-                  <text style={{ color: 'grey', fontSize: '12px' }}>shahra e faisal , karachi</text>
+                  <text className={styles.card_title}>{item?.name}</text>
+                  <text style={{ color: 'grey', fontSize: '12px' }}>{item?.location}</text>
                  
                   <button className={styles.card_button}>VISIT</button>
                 </div>
               </div>
-
-                // <div className={styles.card}>
-                //   <img src={item?.image} className={styles.card_image} />
-                //   <div className={styles.card_text_view}>
-                //     <text className={styles.card_title}>{item?.name}</text>
-                //     <text style={{ color: 'grey', fontSize: '12px' }}>visual form of a document or a typeface without relying on</text>
-                //     <div>
-                //       <text className={styles.card_title}>$ 300 /-</text>
-                //     </div>
-                //     <button className={styles.card_button}>ADD TO CART</button>
-                //   </div>
-                // </div>
               )
             })
           }

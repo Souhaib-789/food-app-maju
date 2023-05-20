@@ -103,7 +103,7 @@ align-self: center;
 .home_view_three{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
 
 }
