@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import styles from "./Navbar.module.css";
 import { RiShoppingBag3Fill } from "react-icons/ri";
-import { Colors } from "../../config/Colors";
+import Logo from '../../assets/logo.png'
+
 
 const Navbar = () => {
-  const [MobileMenu, setMobileMenu] = useState(true);
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className={`container-fluid ${styles.navbar_main_container}`}>
-        <a className="navbar-brand" href="#">
-          boogie
-        </a>
+        <img src={Logo} className={styles.logo} />
         <button
           className="navbar-toggler"
           type="button"
@@ -22,8 +20,8 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul
+        <div className={`collapse navbar-collapse ${styles.navbar_end_view}`} id="navbarSupportedContent">
+          {/* <ul
             className={`navbar-nav me-auto mb-2 mb-lg-0 ${styles.links_list}`}
           >
             <li className="nav-item">
@@ -51,21 +49,30 @@ const Navbar = () => {
                 Contact
               </a>
             </li>
-          </ul>
-          <form className="d-flex" role="search">
-            <input
-              className={`form-control me-2 ${styles.search_input}`}
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button
-              className={`btn btn-outline-success ${styles.cart_button}`}
-              type="submit"
-            >
-              <RiShoppingBag3Fill color={Colors.WHITE} size={25} />
+          </ul> */}
+          {/* <input
+            className={`form-control me-2 ${styles.search_input}`}
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          /> */}
+
+          <div class="dropdown" style={{padding: '0px 30px'}}>
+            <button class={`btn dropdown-toggle ${styles.dropdown}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Select Location
             </button>
-          </form>
+            <ul class="dropdown-menu">
+              <li><button class="dropdown-item" type="button">Karachi</button></li>
+              <li><button class="dropdown-item" type="button">Islamabad</button></li>
+              <li><button class="dropdown-item" type="button">Peshawar</button></li>
+            </ul>
+          </div>
+          <button
+            className={`btn btn-outline-success ${styles.cart_button}`}
+            type="submit"
+          >
+            <RiShoppingBag3Fill color={'white'} size={25} />
+          </button>
         </div>
       </div>
     </nav>
@@ -74,31 +81,3 @@ const Navbar = () => {
 
 export default Navbar;
 
-{
-  /* <nav>
-       <img src={require("../../assets/fg.png")} className={styles.logo} />
-       <ul className={MobileMenu ? styles.navbar : styles.mobNavbar}>
-         <li>
-           <a href="#">Home</a>
-         </li>
-
-         <li>
-           <a href="#">About</a>
-         </li>
-         <li>
-           <a href="#">Contact</a>
-         </li>
-         <li>
-           <a href="#">Services</a>
-         </li>
-         <li>
-           <a href="#">Instructions</a>
-         </li>
-       </ul>
-       <div id={styles.mobile}>
-         <a onClick={() => setMobileMenu(!MobileMenu)}>
-           <GiHamburgerMenu color="#17cf97" size={30} />
-         </a>
-       </div>
-     </nav> */
-}
