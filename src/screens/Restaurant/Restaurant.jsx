@@ -71,7 +71,7 @@ const items = [
                                         <div>
                                             <text className={styles.card_title}>$ 300 /-</text>
                                         </div>
-                                        <button onClick={addToCart} className={styles.card_button}>ADD TO CART</button>
+                                        <button onClick={addToCart} className={styles.card_button} >ADD TO CART</button>
                                     </div>
                                 </div>
                             )
