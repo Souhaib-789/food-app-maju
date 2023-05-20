@@ -9,11 +9,12 @@ import Product_Image_a from '../../assets/rest.jfif'
 import Product_Image_b from '../../assets/rest.jfif'
 import Product_Image_c from '../../assets/rest.jfif'
 import Product_Image_d from '../../assets/rest.jfif'
+import { useNavigate } from "react-router";
 
 const Home = () => {
   
   const [restaurants , setrestaurants] = useState([])
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetch('http://localhost:5000/api/restaurants')
       .then((response) => response.json())
@@ -114,7 +115,7 @@ const Home = () => {
                   <text className={styles.card_title}>{item?.name}</text>
                   <text style={{ color: 'grey', fontSize: '12px' }}>{item?.location}</text>
                  
-                  <button className={styles.card_button}>VISIT</button>
+                  <button className={styles.card_button} onClick={()=> navigate('restaurent')}>VISIT</button>
                 </div>
               </div>
               )

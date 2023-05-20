@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import styles from "./Navbar.module.css";
 import { RiShoppingBag3Fill } from "react-icons/ri";
 import Logo from '../../assets/logo.png'
+import { useNavigate } from "react-router";
 
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className={`container-fluid ${styles.navbar_main_container}`}>
@@ -70,6 +72,7 @@ const Navbar = () => {
           <button
             className={`btn btn-outline-success ${styles.cart_button}`}
             type="submit"
+            onClick={()=> navigate('cart')}
           >
             <RiShoppingBag3Fill color={'white'} size={25} />
           </button>
