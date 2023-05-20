@@ -1,10 +1,10 @@
+
 import logo from './logo.svg';
+import AppRouter from './router';
 
 function App() {
   return (
-    <div className="App">
-   <h1>Our Food App</h1>
-    </div>
+    <AppRouter />
   );
 }
 
