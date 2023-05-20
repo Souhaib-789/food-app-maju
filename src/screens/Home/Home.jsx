@@ -19,7 +19,7 @@ const Home = () => {
     fetch('http://localhost:5000/api/restaurants')
       .then((response) => response.json())
       .then((json) =>  setrestaurants(json.data))
-    //   .catch((error) => console.error(error))
+      .catch((error) => console.error(error))
     //   .finally(() => setLoading(false));
   }, []);
 
