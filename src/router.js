@@ -9,6 +9,7 @@ import Home from "./screens/Home/Home";
 import Cart from "./screens/Cart/cart";
 import Navbar from "./screens/Navbar/Navbar";
 import Restaurant from './screens/Restaurant/Restaurant'
+import Footer from "./screens/Footer/footer";
 
 export default function AppRouter() {
     return (
@@ -20,6 +21,8 @@ export default function AppRouter() {
                 <Route path="cart" element={<Cart />} />
                 <Route path="*" element={<p>Path not resolved</p>} />
             </Routes>
+            <Footer />
+
         </Router>
     );
 }

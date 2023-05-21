@@ -197,7 +197,6 @@ export default function Cart() {
           </Grid>
         </Grid>
       </Container>
-      <Footer />
     </>
   );
 }

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import MainImage from "../../assets/main_image.png";
+import MainImage3 from "../../assets/main_image3.png";
+import MainImage2 from "../../assets/chicken.png";
+
 import { AiOutlineFileDone } from "react-icons/ai";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { FaShippingFast } from "react-icons/fa";
 import BannerImage from '../../assets/illustration.png'
-import Product_Image_a from '../../assets/rest.jfif'
-import Product_Image_b from '../../assets/rest.jfif'
+import Product_Image_a from '../../assets/main_image.png'
+import Product_Image_b from '../../assets/main_image3.png'
 import Product_Image_c from '../../assets/rest.jfif'
-import Product_Image_d from '../../assets/rest.jfif'
+import Product_Image_d from '../../assets/s2.png'
 import { useNavigate } from "react-router";
 
 const Home = () => {
@@ -71,19 +74,20 @@ const Home = () => {
   return (
     <div className={styles.main_div}>
       <div className={styles.home_view_one}>
-        <div className={styles.flex} data-aos="fade-right">
+        <div className={styles.flex} >
           <text className={styles.main_heading}>Discover Restaurants that Deliver Near You</text>
           <text className={styles.span}>
-            Lorem ipsum is a placeholder text commonly used to demonstrate the
-            visual form of a document or a typeface without relying on
-            meaningful content.
+           Order your favorite food from your favotite restaurant. Or book a table with suitable slots and enjoy meal with your loved ones
           </text>
 
           <button className={styles.main_button} >Learn More</button>
         </div>
-        <div className={styles.side_view} data-aos="fade-left">
+        <div className={styles.side_view} >
           <img src={MainImage} className={styles.main_image} />
         </div>
+        <img src={MainImage2} className={styles.main_image_2} />
+        <img src={MainImage3} className={styles.main_image_3} />
+
       </div>
 
 
@@ -107,12 +111,12 @@ const Home = () => {
         <text className={styles.sub_heading}>Available Restaurants</text>
         <div className={styles.home_view_three}>
           {
-            restaurants?.map((item, index) => {
+            items?.map((item, index) => {
               return (
                 <div className={styles.restaurant_card}>
                 <img src={item?.image} className={styles.card_image} />
                 <div className={styles.card_text_view}>
-                  <text className={styles.card_title}>{item?.name}</text>
+                  <text className={styles.card_title}>{item?.name} </text>
                   <text style={{ color: 'grey', fontSize: '12px' }}>{item?.location}</text>
                  
                   <button className={styles.card_button} onClick={()=> navigate('restaurent')}>VISIT</button>
@@ -131,8 +135,7 @@ const Home = () => {
         <img src={BannerImage} className={styles.banner_image} />
         <div className={styles.banner_sub_view}>
           <text className={styles.sub_heading}>Buy the best food of your favorite choice</text>
-          <text className={styles.span}>Lorem ipsum is a placeholder text commonly used to demonstrate the
-            visual form of a document or a typeface without relying on</text>
+          <text className={styles.span}>You can order your favorite meal anytime , anywhere. Just select your favorite restaurant and grab your delicious stuff to make your meal time happy and easy.</text>
         </div>
       </div>
 
