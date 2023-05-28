@@ -113,6 +113,19 @@ body{
     margin-top: 5%;
   }
 
+  .review_button{
+    width: 150px;
+    height: 40px;
+    background-color: var(--secondary-color);
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-left: 11%;
+    margin-bottom: 3%;
+  }
+
   .table_button:hover {
     background-color: transparent;
     border: 1px solid var(--secondary-color);
@@ -146,6 +159,22 @@ body{
     display: flex;
     flex-direction: column;
   }
+
+
+  .review_card{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: center;
+    margin: 3% 0%;
+  }
+
+  .review_sub_view{
+    width: 80%;
+    margin-left: 2%;
+  }
+
+
 
 @media screen and (max-width: 768px) {
 }
@@ -301,4 +330,13 @@ body{
         margin-top: 5%;
         font-size: 12px;
       }
+
+      .review_card{
+        display: flex;
+        flex-direction: row;
+        width: 90%;
+        justify-content: center;
+        margin: 10% 0%;
+      }
+
 }

@@ -7,23 +7,34 @@ import Product_Image_d from '../../assets/main_image.png'
 import TableImage from '../../assets/table.png'
 import { useDispatch, useSelector } from "react-redux";
 import CartActions from "../../redux/Actions/CartActions";
-import { FaUserAlt } from "react-icons/fa";
+import { HiUserCircle } from "react-icons/hi";
+import { Rate, List } from "antd";
+import ReviewModal from "../Modal/ReviewModal";
 
 
 const Restaurant = () => {
-const dispatch = useDispatch();
-const CART_ITEMS = useSelector(state => state.CartReducer)
-const [products , setproducts] = useState()
-console.log('+++++++++++++++++++', CART_ITEMS);
+    const dispatch = useDispatch();
+    const CART_ITEMS = useSelector(state => state.CartReducer)
+    const [products, setproducts] = useState()
+    const [openReviewModal, setopenReviewModal] = useState(false);
+    const [name, setname] = useState()
+    const [statement, setstatement] = useState()
+    const [rating, setrating] = useState(0)
 
-useEffect(() => {
-    fetch('http://localhost:5000/api/restaurants')
-      .then((response) => response.json())
-      .then((json) =>  console.log(json.data))
-      .catch((error) => console.error(error))
-    //   .finally(() => setLoading(false));
-  }, []);
-const items = [
+
+    console.log('+++++++++++++++++++', rating);
+
+    useEffect(() => {
+    getResaurantData()
+    }, []);
+
+    const getResaurantData = ( ) => {
+        // fetch('http://localhost:5000/api/restaurants')
+        // .then((response) => response.json())
+        // .then((json) => console.log(json.data))
+        // .catch((error) => console.error(error))
+    } 
+    const items = [
         {
             id: 1,
             name: 'Burger',
@@ -47,7 +58,34 @@ const items = [
     ]
 
     const addToCart = () => {
-        dispatch(CartActions.AddtoCart({name: 'Apple', price: '300'}))
+        dispatch(CartActions.AddtoCart({ name: 'Apple', price: '300' }))
+    }
+
+    const onSubmitReview = () => {
+        if(!name){
+            alert('Please enter your name')
+        }
+        else if(!statement){
+            alert('Please enter review statement')
+        }
+        else if(!rating){
+            alert('Please give rating')
+        }
+        else{
+            setopenReviewModal(false)
+        }
+    }
+    const renderReviewItem = (item, index) => {
+        return (
+            <div className={styles.review_card}>
+                <HiUserCircle size={35} color={'#fe043c'} />
+                <div className={styles.review_sub_view}>
+                    <text className={styles.text}>M.Souhaib</text>
+                    <Rate defaultValue={5} disabled />
+                    <p>lorem ipsum dummy p lorem ipsum dummy p lorem ipsum dummy p lorem ipsum dummy p lorem ipsum dummy p lorem ipsum dummy p lorem ipsum dummy p lorem ipsum dummy p lorem ipsum dummy p </p>
+                </div>
+            </div>
+        )
     }
 
     return (
@@ -94,14 +132,27 @@ const items = [
                 </div>
             </div>
 
+            <text className={styles.sub_heading} style={{marginLeft: '5%'}}>Customers Reviews</text>
 
-            <div>
-                <FaUserAlt size={30} color={'#fe043c'} />
-                <div className={styles.review_sub_view}>
-                    <text className={styles.text}>USer One</text>
-                    <text>lorem ipsum dummy text lorem ipsum dummy text lorem ipsum dummy text lorem ipsum dummy text lorem ipsum dummy text lorem ipsum dummy text lorem ipsum dummy text lorem ipsum dummy text lorem ipsum dummy text </text>
-                </div>
-            </div>
+            <List
+                dataSource={items}
+                renderItem={renderReviewItem}
+            />
+
+            <button onClick={() => setopenReviewModal(true)} className={styles.review_button}>Add your review</button>
+
+            <ReviewModal
+             visible={openReviewModal}
+            onClose={()=> setopenReviewModal(false)}
+            onSubmit={onSubmitReview} 
+
+            rating={rating}
+            onChangeRating={(e)=> setrating(e)}
+            name={name} 
+            onChangeName={(e)=> setname(e.target.value)}
+            
+            statement={statement} 
+            onChangeStatement={(e)=> setstatement(e.target.value)}/>
         </div>
     );
 };

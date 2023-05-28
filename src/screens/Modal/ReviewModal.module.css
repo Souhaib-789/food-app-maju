@@ -1,0 +1,21 @@
+.input{
+    margin: 2% 0%;
+    padding: 10px;
+    border: 1px solid rgb(211, 199, 199);
+    border-radius: 5px;
+    outline: none;
+}
+
+.inputx{
+    margin: 2% 0%;
+    padding: 10px;
+    border: 1px solid rgb(211, 199, 199);
+    border-radius: 5px;
+    outline: none;
+    width: 50%;
+}
+
+.modal_content_view{
+    display: flex;
+    flex-direction: column;
+}
