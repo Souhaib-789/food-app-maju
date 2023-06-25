@@ -7,14 +7,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import TextField from "@mui/material/TextField";
-// import Container from '@mui/';
 import DeleteIcon from "@mui/icons-material/Delete";
-import Footer from "../Footer/footer";
-import CustomizedDialogs from "../Modal/modal";
 export default function Cart() {
   return (
     <>
-    {/* <CustomizedDialogs/> */}
       <Container
         sx={[styles.alignItemsCenter, styles.mt1, { display: "flex" }]}
       >

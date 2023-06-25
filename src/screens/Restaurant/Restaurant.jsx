@@ -10,6 +10,7 @@ import CartActions from "../../redux/Actions/CartActions";
 import { HiUserCircle } from "react-icons/hi";
 import { Rate, List } from "antd";
 import ReviewModal from "../Modal/ReviewModal";
+import BookTableModal from "../Modal/BookTableModal";
 
 
 const Restaurant = () => {
@@ -20,6 +21,8 @@ const Restaurant = () => {
     const [name, setname] = useState()
     const [statement, setstatement] = useState()
     const [rating, setrating] = useState(0)
+    const [openBookTableModal, setopenBookTableModal] = useState(false);
+
 
 
     console.log('+++++++++++++++++++', rating);
@@ -127,7 +130,7 @@ const Restaurant = () => {
                     <div className={styles.flexD}>
                         <text className={styles.mini_heading}>Book A Table</text>
                         <text>Book your reservation and enjoy at your choosen timings at our restaurant</text>
-                        <button className={styles.table_button}>Book A Table</button>
+                        <button onClick={() => setopenBookTableModal(true)}  className={styles.table_button}>Book A Table</button>
                     </div>
                 </div>
             </div>
@@ -144,6 +147,19 @@ const Restaurant = () => {
             <ReviewModal
              visible={openReviewModal}
             onClose={()=> setopenReviewModal(false)}
+            onSubmit={onSubmitReview} 
+
+            rating={rating}
+            onChangeRating={(e)=> setrating(e)}
+            name={name} 
+            onChangeName={(e)=> setname(e.target.value)}
+            
+            statement={statement} 
+            onChangeStatement={(e)=> setstatement(e.target.value)}/>
+
+<BookTableModal
+             visible={openBookTableModal}
+            onClose={()=> setopenBookTableModal(false)}
             onSubmit={onSubmitReview} 
 
             rating={rating}

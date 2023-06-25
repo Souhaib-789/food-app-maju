@@ -1,12 +1,16 @@
-import {  Modal, Rate } from 'antd';
+import {  Modal, DatePicker } from 'antd';
 import styles from './ReviewModal.module.css'
 
-const ReviewModal = (props) => {
+const BookTableModal = (props) => {
+
+  const onChange = (date, dateString) => {
+    console.log(date, dateString);
+  };
 
   return (
     
       <Modal
-        title="Add Review to this Restaurant"
+        title="Book a Table"
         centered
         open={props.visible}
         onOk={props?.onSubmit}
@@ -15,12 +19,13 @@ const ReviewModal = (props) => {
         cancelText={false}
       >
         <div className={styles.modal_content_view}>
-        <Rate defaultValue={props?.rating} onChange={props?.onChangeRating} />
+        <DatePicker onChange={onChange} />
+
         <input placeholder='Enter your name' className={styles.inputx} value={props?.name} onChange={props?.onChangeName} />
-        <input placeholder='Enter your review statement' className={styles.input} value={props?.statement} onChange={props?.onChangeStatement} />
+        <input placeholder='Any additional' className={styles.input} value={props?.statement} onChange={props?.onChangeStatement} />
         </div>
       </Modal>
 
   );
 };
-export default ReviewModal;
+export default BookTableModal;
