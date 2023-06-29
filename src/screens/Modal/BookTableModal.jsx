@@ -4,11 +4,6 @@ import { MdTableRestaurant } from "react-icons/md";
 import { useState } from 'react';
 
 const BookTableModal = (props) => {
-
-  const onChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
-
   const [TableSeaters , setTableSeaters] = useState()
 
   const bookOptions = [
@@ -26,6 +21,15 @@ const BookTableModal = (props) => {
     }
   ]
 
+  const onChangeDate = (date,dateString) => {
+    props?.selectedDate(dateString)
+  };
+
+  const onPressSelectTable = (item) =>{
+    props?.onStateChange(item)
+    setTableSeaters(item)
+  }
+  
   return (
 
     <Modal
@@ -36,22 +40,24 @@ const BookTableModal = (props) => {
       onCancel={props?.onClose}
       okText={'Book Now'}
       cancelText={false}
+      okButtonProps={{ style: { backgroundColor: 'rgba(254,4,60, 0.9)' } }}
+    
     >
       <div className={styles.modal_content_view}>
-        <DatePicker onChange={onChange} />
+        <DatePicker onChange={onChangeDate} />
 
         <div className={styles.modalOptions_view}>
           {bookOptions.map((item, index) =>
-
-            <div style={{backgroundColor: TableSeaters?.name == item?.name  ? 'rgba(254,4,60, 0.9)' : 'white'}} className={styles.modal_text} onClick={()=> setTableSeaters(item)}>
+            <div style={{backgroundColor: TableSeaters?.name == item?.name  ? 'rgba(254,4,60, 0.9)' : 'white'}} className={styles.modal_text} onClick={()=> onPressSelectTable(item)} >
               <MdTableRestaurant color={TableSeaters?.name == item?.name ? 'white' : 'rgba(254,4,60, 0.9)'} size={25} />
-              <text style={{color: TableSeaters?.name == item?.name ? 'white' : 'black'}}>{item?.name} seaters</text>
+              <text style={{color: TableSeaters?.name == item?.name ? 'white' : 'black', textAlign:'center'}}>{item?.name} seaters</text>
             </div>
           )}
         </div>
 
         <input placeholder='Enter your name' className={styles.inputx} value={props?.name} onChange={props?.onChangeName} />
-        <input placeholder='Any additional information' className={styles.input} value={props?.statement} onChange={props?.onChangeStatement} />
+        <input placeholder='Enter contact no.' className={styles.inputx} value={props?.contact} onChange={props?.onChangeContact} />
+        <input placeholder='Any additional information' className={styles.input} value={props?.info} onChange={props?.onChangeInfo} />
       </div>
     </Modal>
 

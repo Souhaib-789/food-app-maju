@@ -153,6 +153,7 @@ body{
   .mini_heading{
     font-size: 25px;
     font-weight: 500;
+    margin-left: 5px;
   }
 
   .review_sub_view{

@@ -11,7 +11,7 @@ import { HiUserCircle } from "react-icons/hi";
 import { Rate, List } from "antd";
 import ReviewModal from "../Modal/ReviewModal";
 import BookTableModal from "../Modal/BookTableModal";
-
+import { FaCalendarCheck } from "react-icons/fa";
 
 const Restaurant = () => {
     const dispatch = useDispatch();
@@ -23,20 +23,26 @@ const Restaurant = () => {
     const [rating, setrating] = useState(0)
     const [openBookTableModal, setopenBookTableModal] = useState(false);
 
+    const [customerName, setcustomerName] = useState()
+    const [customerContact, setcustomerContact] = useState()
+    const [customerInfo, setcustomerInfo] = useState()
+    const [selectedDate, setselectedDate] = useState()
+    const [tableType, settableType] = useState()
 
+    const [TableData, setTableData] = useState(null)
+    const bookingID = Math.random().toString().substring(2, 8)
 
-    console.log('+++++++++++++++++++', rating);
+    useEffect(() => {    console.log('------------', bookingID);
 
-    useEffect(() => {
-    getResaurantData()
+        getResaurantData()
     }, []);
 
-    const getResaurantData = ( ) => {
+    const getResaurantData = () => {
         // fetch('http://localhost:5000/api/restaurants')
         // .then((response) => response.json())
         // .then((json) => console.log(json.data))
         // .catch((error) => console.error(error))
-    } 
+    }
     const items = [
         {
             id: 1,
@@ -65,19 +71,50 @@ const Restaurant = () => {
     }
 
     const onSubmitReview = () => {
-        if(!name){
+        if (!name) {
             alert('Please enter your name')
         }
-        else if(!statement){
+        else if (!statement) {
             alert('Please enter review statement')
         }
-        else if(!rating){
+        else if (!rating) {
             alert('Please give rating')
         }
-        else{
+        else {
             setopenReviewModal(false)
         }
     }
+
+
+    const onPressBooktable = () => {
+        if (!customerName) {
+            alert('Please enter your name')
+        }
+        else if (!customerContact) {
+            alert('Please enter contact number')
+        }
+        else if (!tableType) {
+            alert('Please select table type')
+        }
+        else {
+            setopenBookTableModal(false)
+            let BookedTableData = {
+                customerName: customerName,
+                customerContact: customerContact,
+                customerInfo: customerInfo ? customerInfo : null,
+                bookedDate: selectedDate,
+                tableSeaters: tableType?.name
+            }
+            console.log('------------', BookedTableData);
+            setTableData(BookedTableData)
+            setcustomerContact()
+            setcustomerName()
+            setcustomerInfo()
+            setselectedDate()
+            settableType()
+        }
+    }
+
     const renderReviewItem = (item, index) => {
         return (
             <div className={styles.review_card}>
@@ -90,6 +127,8 @@ const Restaurant = () => {
             </div>
         )
     }
+
+
 
     return (
         <div className={styles.main_div}>
@@ -125,17 +164,34 @@ const Restaurant = () => {
                 <text className={styles.sub_heading}>Available Tables</text>
                 <text className={styles.text}> <span style={{ color: '#fe043c', fontWeight: "bold" }} >3</span> tables available</text>
 
+
                 <div className={styles.table_sub_view}>
                     <img src={TableImage} className={styles.table_image} />
-                    <div className={styles.flexD}>
-                        <text className={styles.mini_heading}>Book A Table</text>
-                        <text>Book your reservation and enjoy at your choosen timings at our restaurant</text>
-                        <button onClick={() => setopenBookTableModal(true)}  className={styles.table_button}>Book A Table</button>
+
+                    {
+                        TableData ?
+                        <div className={styles.flexD}>
+                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                            <FaCalendarCheck color={'#32cd32'} size={20} />
+                            <text className={styles.mini_heading}>    Table Booked !</text>
+                        </div>
+                        <text>Your dinner reservation has been confirmed for the category of <b>{TableData?.tableSeaters} seaters</b> on the slot of {TableData?.bookedDate}</text>
+                        <text><b> Booking ID #</b> : {bookingID} </text>
                     </div>
+                           
+                            :
+                            <div className={styles.flexD}>
+                            <text className={styles.mini_heading}>Book A Table</text>
+                            <text>Book your reservation and enjoy at your choosen timings at our restaurant</text>
+                            <button onClick={() => setopenBookTableModal(true)} className={styles.table_button}>Book A Table</button>
+                        </div>
+                           
+
+                    }
                 </div>
             </div>
 
-            <text className={styles.sub_heading} style={{marginLeft: '5%'}}>Customers Reviews</text>
+            <text className={styles.sub_heading} style={{ marginLeft: '5%' }}>Customers Reviews</text>
 
             <List
                 dataSource={items}
@@ -145,30 +201,36 @@ const Restaurant = () => {
             <button onClick={() => setopenReviewModal(true)} className={styles.review_button}>Add your review</button>
 
             <ReviewModal
-             visible={openReviewModal}
-            onClose={()=> setopenReviewModal(false)}
-            onSubmit={onSubmitReview} 
+                visible={openReviewModal}
+                onClose={() => setopenReviewModal(false)}
+                onSubmit={onSubmitReview}
 
-            rating={rating}
-            onChangeRating={(e)=> setrating(e)}
-            name={name} 
-            onChangeName={(e)=> setname(e.target.value)}
-            
-            statement={statement} 
-            onChangeStatement={(e)=> setstatement(e.target.value)}/>
+                rating={rating}
+                onChangeRating={(e) => setrating(e)}
+                name={name}
+                onChangeName={(e) => setname(e.target.value)}
 
-<BookTableModal
-             visible={openBookTableModal}
-            onClose={()=> setopenBookTableModal(false)}
-            onSubmit={onSubmitReview} 
+                statement={statement}
+                onChangeStatement={(e) => setstatement(e.target.value)} />
 
-            rating={rating}
-            onChangeRating={(e)=> setrating(e)}
-            name={name} 
-            onChangeName={(e)=> setname(e.target.value)}
-            
-            statement={statement} 
-            onChangeStatement={(e)=> setstatement(e.target.value)}/>
+            <BookTableModal
+
+                visible={openBookTableModal}
+                onClose={() => setopenBookTableModal(false)}
+                onSubmit={onPressBooktable}
+
+                selectedDate={date => setselectedDate(date)}
+
+                onStateChange={item => settableType(item)}
+
+                name={customerName}
+                onChangeName={(e) => setcustomerName(e.target.value)}
+
+                contact={customerContact}
+                onChangeContact={(e) => setcustomerContact(e.target.value)}
+
+                info={customerInfo}
+                onChangeInfo={(e) => setcustomerInfo(e.target.value)} />
         </div>
     );
 };
