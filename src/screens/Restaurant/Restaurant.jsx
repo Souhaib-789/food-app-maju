@@ -32,7 +32,8 @@ const Restaurant = () => {
     const [TableData, setTableData] = useState(null)
     const bookingID = Math.random().toString().substring(2, 8)
 
-    useEffect(() => {    console.log('------------', bookingID);
+    useEffect(() => {
+        console.log('------------', bookingID);
 
         getResaurantData()
     }, []);
@@ -82,9 +83,12 @@ const Restaurant = () => {
         }
         else {
             setopenReviewModal(false)
+            setname()
+            setstatement()
+            setrating()
+            alert('Review submitted succesfully !')
         }
     }
-
 
     const onPressBooktable = () => {
         if (!customerName) {
@@ -105,7 +109,6 @@ const Restaurant = () => {
                 bookedDate: selectedDate,
                 tableSeaters: tableType?.name
             }
-            console.log('------------', BookedTableData);
             setTableData(BookedTableData)
             setcustomerContact()
             setcustomerName()
@@ -170,23 +173,20 @@ const Restaurant = () => {
 
                     {
                         TableData ?
-                        <div className={styles.flexD}>
-                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                            <FaCalendarCheck color={'#32cd32'} size={20} />
-                            <text className={styles.mini_heading}>    Table Booked !</text>
-                        </div>
-                        <text>Your dinner reservation has been confirmed for the category of <b>{TableData?.tableSeaters} seaters</b> on the slot of {TableData?.bookedDate}</text>
-                        <text><b> Booking ID #</b> : {bookingID} </text>
-                    </div>
-                           
+                            <div className={styles.flexD}>
+                                <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                                    <FaCalendarCheck color={'#32cd32'} size={20} />
+                                    <text className={styles.mini_heading}>    Table Booked !</text>
+                                </div>
+                                <text>Your dinner reservation has been confirmed for the category of <b>{TableData?.tableSeaters} seaters</b> on the slot of {TableData?.bookedDate}</text>
+                                <text><b> Booking ID #</b> : {bookingID} </text>
+                            </div>
                             :
                             <div className={styles.flexD}>
-                            <text className={styles.mini_heading}>Book A Table</text>
-                            <text>Book your reservation and enjoy at your choosen timings at our restaurant</text>
-                            <button onClick={() => setopenBookTableModal(true)} className={styles.table_button}>Book A Table</button>
-                        </div>
-                           
-
+                                <text className={styles.mini_heading}>Book A Table</text>
+                                <text>Book your reservation and enjoy at your choosen timings at our restaurant</text>
+                                <button onClick={() => setopenBookTableModal(true)} className={styles.table_button}>Book A Table</button>
+                            </div>
                     }
                 </div>
             </div>

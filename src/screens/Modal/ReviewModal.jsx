@@ -11,6 +11,7 @@ const ReviewModal = (props) => {
         onOk={props?.onSubmit}
         onCancel={props?.onClose}
         okText={'Submit Review'}
+        okButtonProps={{ style: { backgroundColor: 'rgba(254,4,60, 0.9)' } }}
         cancelText={false}
       >
         <div className={styles.modal_content_view}>

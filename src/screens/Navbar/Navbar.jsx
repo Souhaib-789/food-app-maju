@@ -3,10 +3,21 @@ import styles from "./Navbar.module.css";
 import { RiShoppingBag3Fill } from "react-icons/ri";
 import Logo from '../../assets/logo.png'
 import { useNavigate } from "react-router";
+import { Button, Dropdown, Select } from "antd";
 
 
 const Navbar = () => {
+
   const navigate = useNavigate();
+
+  const [cities, setCities] = useState(['Karachi', 'Lahore', 'Peshawar']);
+  const [selectedCity, setselectedCity] = useState('Select Your City');
+ 
+  const onSelectCity = (value) => {
+    setselectedCity(value)
+  };
+
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className={`container-fluid ${styles.navbar_main_container}`}>
@@ -59,20 +70,23 @@ const Navbar = () => {
             aria-label="Search"
           /> */}
 
-          <div class="dropdown" style={{padding: '0px 30px'}}>
-            <button class={`btn dropdown-toggle ${styles.dropdown}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Select Location
-            </button>
-            <ul class="dropdown-menu">
-              <li><button class="dropdown-item" type="button">Karachi</button></li>
-              <li><button class="dropdown-item" type="button">Islamabad</button></li>
-              <li><button class="dropdown-item" type="button">Peshawar</button></li>
-            </ul>
-          </div>
+        
+
+          <Select
+          className={styles?.dropdown}
+          bordered={false}
+            value={selectedCity}
+            onChange={onSelectCity}
+            options={cities.map((city) => ({
+              label: city,
+              value: city,
+            }))}
+          />
+          
           <button
             className={`btn btn-outline-success ${styles.cart_button}`}
             type="submit"
-            onClick={()=> navigate('cart')}
+            onClick={() => navigate('cart')}
           >
             <RiShoppingBag3Fill color={'white'} size={25} />
           </button>

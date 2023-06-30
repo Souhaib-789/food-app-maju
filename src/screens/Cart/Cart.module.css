@@ -1,3 +1,76 @@
-.btn-con{
+.btn-con {
     margin-left: auto !important;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.div_one {
+    flex: 1;
+    padding: 2% 5%;
+}
+
+.div_two {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.product_image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.product_card {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card_text_view {
+    display: flex;
+    flex-direction: column;
+}
+
+.total_text_view {
+    display: flex;
+    flex-direction: column;
+    margin: 8% 0%;
+}
+
+.counter_view {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 15%;
+    align-items: center;
+}
+
+.input {
+    border-bottom: 1px solid grey;
+    border-radius: 0px;
+    margin: 5% 0%;
+}
+
+.main_button {
+    background-color: var(--secondary-color);
+    width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 1px;
+    justify-content: center;
+    color: var(--white-color);
+    margin: 30px 0px;
 }
