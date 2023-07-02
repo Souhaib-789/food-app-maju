@@ -33,8 +33,6 @@ const Restaurant = () => {
     const bookingID = Math.random().toString().substring(2, 8)
 
     useEffect(() => {
-        console.log('------------', bookingID);
-
         getResaurantData()
     }, []);
 
@@ -67,8 +65,9 @@ const Restaurant = () => {
         },
     ]
 
-    const addToCart = () => {
-        dispatch(CartActions.AddtoCart({ name: 'Apple', price: '300' }))
+    const addToCart = (e) => {
+        dispatch(CartActions.AddtoCart(e))
+        alert(`${e?.name} added to Cart`)
     }
 
     const onSubmitReview = () => {
@@ -154,7 +153,7 @@ const Restaurant = () => {
                                         <div>
                                             <text className={styles.card_title}>$ 300 /-</text>
                                         </div>
-                                        <button onClick={addToCart} className={styles.card_button} >ADD TO CART</button>
+                                        <button onClick={()=> addToCart(item)} className={styles.card_button} >ADD TO CART</button>
                                     </div>
                                 </div>
                             )
@@ -194,7 +193,7 @@ const Restaurant = () => {
             <text className={styles.sub_heading} style={{ marginLeft: '5%' }}>Customers Reviews</text>
 
             <List
-                dataSource={items}
+                dataSource={[1,2]}
                 renderItem={renderReviewItem}
             />
 

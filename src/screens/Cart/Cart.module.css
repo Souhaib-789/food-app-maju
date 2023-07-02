@@ -1,6 +1,4 @@
-.btn-con {
-    margin-left: auto !important;
-}
+
 
 .container {
     display: flex;
@@ -73,4 +71,38 @@
     justify-content: center;
     color: var(--white-color);
     margin: 30px 0px;
+}
+
+@media screen and (max-width: 768px) {
+}
+
+@media only screen and (max-width: 900px) {}
+
+@media only screen and (max-width: 576px) {
+    
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.product_image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.product_card {
+  display: flex;
+    width: 95%;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.counter_view {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 20%;
+    align-items: center;
+}
 }

@@ -80,7 +80,7 @@ const Home = () => {
            Order your favorite food from your favotite restaurant. Or book a table with suitable slots and enjoy meal with your loved ones
           </text>
 
-          <button className={styles.main_button} >Learn More</button>
+          <button className={styles.main_button} > Learn More</button>
         </div>
         <div className={styles.side_view} >
           <img src={MainImage} className={styles.main_image} />

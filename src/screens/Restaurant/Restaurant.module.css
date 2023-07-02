@@ -41,7 +41,7 @@ body{
 .items_view{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     flex-wrap: wrap;
 }
 
@@ -52,7 +52,7 @@ body{
     flex-direction: row;
     justify-content: space-between;
     padding: 2% 1%;
-    margin: 25px 0px;
+    margin: 5% 1%;
     border-radius: 10px;
     border: none;
     background-color: white;
@@ -80,13 +80,14 @@ body{
   .card_button{
     background-color: var(--secondary-color);
     border: none;
-    padding: 3%;
+    padding: 4%;
     width: 80%;
     display: flex;
     justify-content: center;
     border-radius: 5px;
     color: azure;
-    margin-top: 5%;
+    margin-top: 10%;
+    font-size: 12px;
   }
 
   .table_image{
@@ -240,6 +241,13 @@ body{
         width: 100%;
     }
 
+    .mini_heading{
+      font-size: 20px;
+    }
+    .text{
+      font-size: var(--heading-d);
+    }
+
     .restaurant_name{
         font-size: 25px;
         font-weight: 700;
@@ -311,6 +319,7 @@ body{
         align-self: center;
         align-items: center;
         width: 100%;
+        margin-bottom: 8%;
       }
 
       .table_image{
@@ -337,7 +346,7 @@ body{
         flex-direction: row;
         width: 90%;
         justify-content: center;
-        margin: 10% 0%;
+        margin: 5% 0%;
       }
 
 }
