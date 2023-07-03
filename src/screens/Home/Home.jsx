@@ -13,6 +13,7 @@ import Product_Image_b from '../../assets/main_image3.png'
 import Product_Image_c from '../../assets/rest.jfif'
 import Product_Image_d from '../../assets/s2.png'
 import { useNavigate } from "react-router";
+import { GoLocation } from "react-icons/go";
 
 const Home = () => {
   
@@ -117,8 +118,11 @@ const Home = () => {
                 <img src={item?.image} className={styles.card_image} />
                 <div className={styles.card_text_view}>
                   <text className={styles.card_title}>{item?.name} </text>
-                  <text style={{ color: 'grey', fontSize: '12px' }}>{item?.location}</text>
-                 
+                  <div style={{display: "flex", alignItems: 'center' , flexDirection: 'row'}}>
+                    <GoLocation size={15} color={'grey'} />
+                  <text className={styles.card_subtitle}>{  item?.name} </text>   
+                  </div>
+              
                   <button className={styles.card_button} onClick={()=> navigate('restaurent')}>VISIT</button>
                 </div>
               </div>
