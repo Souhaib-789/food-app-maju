@@ -4,7 +4,7 @@ import styles from './Cart.module.css'
 import Product from '../../assets/chicken.png'
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
-import SuccessModal from "../Modal/SuccessModal";
+import SuccessModal from "../../components/Modal/SuccessModal";
 import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
