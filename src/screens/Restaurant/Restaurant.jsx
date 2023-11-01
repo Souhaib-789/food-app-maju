@@ -9,9 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import CartActions from "../../redux/Actions/CartActions";
 import { HiUserCircle } from "react-icons/hi";
 import { Rate, List } from "antd";
-import ReviewModal from "../Modal/ReviewModal";
-import BookTableModal from "../Modal/BookTableModal";
 import { FaCalendarCheck } from "react-icons/fa";
+import ReviewModal from '../../components/Modal/ReviewModal'
+import BookTableModal from '../../components/Modal/BookTableModal'
+
 
 const Restaurant = () => {
     const dispatch = useDispatch();
@@ -134,7 +135,7 @@ const Restaurant = () => {
 
     return (
         <div className={styles.main_div}>
-            <text className={styles.restaurant_name}>Lal Qila Restaurant</text>
+            <text data-aos="flip-left" data-aos-duration="2000"  className={styles.restaurant_name}>Lal Qila Restaurant</text>
             <img src="https://lalqila.com/hyderabad/wp-content/uploads/2015/03/Edited-2.jpg" class={`img-fluid ${styles.bg_image}`} alt="..."></img>
 
 
@@ -145,7 +146,7 @@ const Restaurant = () => {
                     {
                         items?.map((item, index) => {
                             return (
-                                <div className={styles.card}>
+                                <div className={styles.card} data-aos="zoom-in-up" data-aos-duration="2000">
                                     <img src={item?.image} className={styles.card_image} />
                                     <div className={styles.card_text_view}>
                                         <text className={styles.card_title}>{item?.name}</text>

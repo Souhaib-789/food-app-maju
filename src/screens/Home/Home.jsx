@@ -83,11 +83,11 @@ const Home = () => {
 
           <button className={styles.main_button} > Learn More</button>
         </div>
-        <div className={styles.side_view} >
+        <div className={styles.side_view} data-aos={'fade-up'} data-aos-duration="2000" >
           <img src={MainImage} className={styles.main_image} />
         </div>
-        <img src={MainImage2} className={styles.main_image_2} />
-        <img src={MainImage3} className={styles.main_image_3} />
+        <img src={MainImage2} className={styles.main_image_2} data-aos="fade-right"  data-aos-duration="2000"/>
+        <img src={MainImage3} className={styles.main_image_3}  data-aos="fade-left"  data-aos-duration="2000" />
 
       </div>
 
@@ -114,7 +114,7 @@ const Home = () => {
           {
             items?.map((item, index) => {
               return (
-                <div className={styles.restaurant_card}>
+                <div className={styles.restaurant_card} data-aos="zoom-in-up" data-aos-duration="2000" >
                 <img src={item?.image} className={styles.card_image} />
                 <div className={styles.card_text_view}>
                   <text className={styles.card_title}>{item?.name} </text>
@@ -136,8 +136,8 @@ const Home = () => {
 
       <div className={styles.home_view_four}>
         <div className={styles.bg_bubble_c}></div>
-        <img src={BannerImage} className={styles.banner_image} />
-        <div className={styles.banner_sub_view}>
+        <img src={BannerImage} className={styles.banner_image} data-aos="fade-right" data-aos-duration="2000" />
+        <div className={styles.banner_sub_view} data-aos="fade-left" data-aos-duration="2000">
           <text className={styles.sub_heading}>Buy the best food of your favorite choice</text>
           <text className={styles.span}>You can order your favorite meal anytime , anywhere. Just select your favorite restaurant and grab your delicious stuff to make your meal time happy and easy.</text>
         </div>
