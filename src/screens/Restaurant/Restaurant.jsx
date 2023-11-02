@@ -1,50 +1,51 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Restaurant.module.css";
-import Product_Image_a from "../../assets/s2.png";
-import Product_Image_b from "../../assets/s1.jfif";
-import Product_Image_c from "../../assets/s3.jfif";
-import Product_Image_d from "../../assets/main_image.png";
-import TableImage from "../../assets/table.png";
-import { useDispatch, useSelector } from "react-redux";
-import CartActions from "../../redux/Actions/CartActions";
-import { HiUserCircle } from "react-icons/hi";
-import { Rate, List } from "antd";
-import { FaCalendarCheck } from "react-icons/fa";
-import ReviewModal from "../../components/Modal/ReviewModal";
-import BookTableModal from "../../components/Modal/BookTableModal";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import styles from "./Restaurant.module.css"
+import Product_Image_a from "../../assets/s2.png"
+import Product_Image_b from "../../assets/s1.jfif"
+import Product_Image_c from "../../assets/s3.jfif"
+import Product_Image_d from "../../assets/main_image.png"
+import TableImage from "../../assets/table.png"
+import { useDispatch, useSelector } from "react-redux"
+import CartActions from "../../redux/Actions/CartActions"
+import { HiUserCircle } from "react-icons/hi"
+import { Rate, List } from "antd"
+import { FaCalendarCheck } from "react-icons/fa"
+import ReviewModal from "../../components/Modal/ReviewModal"
+import BookTableModal from "../../components/Modal/BookTableModal"
+import { useLocation } from "react-router-dom"
+import apicall from "../../utils/axios"
 
 const Restaurant = () => {
-  const location = useLocation();
-  console.log(location);
-  const dispatch = useDispatch();
-  const CART_ITEMS = useSelector((state) => state.CartReducer);
-  const [products, setproducts] = useState();
-  const [openReviewModal, setopenReviewModal] = useState(false);
-  const [name, setname] = useState();
-  const [statement, setstatement] = useState();
-  const [rating, setrating] = useState(0);
-  const [openBookTableModal, setopenBookTableModal] = useState(false);
+  const location = useLocation()
+  console.log(location)
+  const dispatch = useDispatch()
+  const CART_ITEMS = useSelector((state) => state.CartReducer)
+  const [products, setproducts] = useState()
+  const [openReviewModal, setopenReviewModal] = useState(false)
+  const [name, setname] = useState()
+  const [statement, setstatement] = useState()
+  const [rating, setrating] = useState(0)
+  const [openBookTableModal, setopenBookTableModal] = useState(false)
 
-  const [customerName, setcustomerName] = useState();
-  const [customerContact, setcustomerContact] = useState();
-  const [customerInfo, setcustomerInfo] = useState();
-  const [selectedDate, setselectedDate] = useState();
-  const [tableType, settableType] = useState();
+  const [customerName, setcustomerName] = useState()
+  const [customerContact, setcustomerContact] = useState()
+  const [customerInfo, setcustomerInfo] = useState()
+  const [selectedDate, setselectedDate] = useState()
+  const [tableType, settableType] = useState()
 
-  const [TableData, setTableData] = useState(null);
-  const bookingID = Math.random().toString().substring(2, 8);
+  const [TableData, setTableData] = useState(null)
+  const bookingID = Math.random().toString().substring(2, 8)
 
   useEffect(() => {
-    getResaurantData();
-  }, []);
+    getResaurantData()
+  }, [])
 
   const getResaurantData = () => {
     // fetch('http://localhost:5000/api/restaurants')
     // .then((response) => response.json())
     // .then((json) => console.log(json.data))
     // .catch((error) => console.error(error))
-  };
+  }
   const items = [
     {
       id: 1,
@@ -66,70 +67,66 @@ const Restaurant = () => {
       name: "Choco Cake",
       image: Product_Image_d,
     },
-  ];
+  ]
 
   const addToCart = (e) => {
-    dispatch(CartActions.AddtoCart(e));
-    alert(`${e?.name} added to Cart`);
-  };
+    dispatch(CartActions.AddtoCart(e))
+    alert(`${e?.name} added to Cart`)
+  }
 
-  const onSubmitReview = () => {
+  const onSubmitReview = async () => {
     if (!name) {
-      alert("Please enter your name");
+      alert("Please enter your name")
     } else if (!statement) {
-      alert("Please enter review statement");
+      alert("Please enter review statement")
     } else if (!rating) {
-      alert("Please give rating");
+      alert("Please give rating")
+    } else if (name && statement && rating) {
+      try {
+        const response = await apicall.put(`/review`, {
+          id: location?.state?._id,
+          reviewer: name,
+          review: statement,
+          rating: rating,
+        })
+        console.log("response", response)
+        // setReview(response?.data?.data)
+      } catch (error) {
+        console.log(error)
+      }
     } else {
-      setopenReviewModal(false);
-      setname();
-      setstatement();
-      setrating();
-      alert("Review submitted succesfully !");
+      setopenReviewModal(false)
+      setname()
+      setstatement()
+      setrating()
+      alert("Review submitted succesfully !")
     }
-  };
+  }
 
   const onPressBooktable = () => {
     if (!customerName) {
-      alert("Please enter your name");
+      alert("Please enter your name")
     } else if (!customerContact) {
-      alert("Please enter contact number");
+      alert("Please enter contact number")
     } else if (!tableType) {
-      alert("Please select table type");
+      alert("Please select table type")
     } else {
-      setopenBookTableModal(false);
+      setopenBookTableModal(false)
       let BookedTableData = {
         customerName: customerName,
         customerContact: customerContact,
         customerInfo: customerInfo ? customerInfo : null,
         bookedDate: selectedDate,
         tableSeaters: tableType?.name,
-      };
-      setTableData(BookedTableData);
-      setcustomerContact();
-      setcustomerName();
-      setcustomerInfo();
-      setselectedDate();
-      settableType();
+      }
+      setTableData(BookedTableData)
+      setcustomerContact()
+      setcustomerName()
+      setcustomerInfo()
+      setselectedDate()
+      settableType()
     }
-  };
-
-  const renderReviewItem = (item, index) => {
-    return (
-      <div key={index} className={styles.review_card}>
-        <HiUserCircle size={35} color={"#fe043c"} />
-        <div className={styles.review_sub_view}>
-          <text className={styles.text}>M.Souhaib</text>
-          <Rate defaultValue={5} disabled />
-          <p>
-            lorem ipsum dummy p lorem ipsum dummy p lorem ipsum dummy p lorem
-            ipsum dummy p lorem ipsum dummy p lorem ipsum dummy p lorem ipsum
-            dummy p lorem ipsum dummy p lorem ipsum dummy p{" "}
-          </p>
-        </div>
-      </div>
-    );
-  };
+  }
 
   return (
     <div className={styles.main_div}>
@@ -175,7 +172,7 @@ const Restaurant = () => {
                   </button>
                 </div>
               </div>
-            );
+            )
           })}
         </div>
       </div>
@@ -234,7 +231,18 @@ const Restaurant = () => {
         Customers Reviews
       </text>
 
-      <List dataSource={[1, 2]} renderItem={renderReviewItem} />
+      {location?.state?.reviews?.map((review, index) => {
+        return (
+          <div key={index} className={styles.review_card}>
+            <HiUserCircle size={35} color={"#fe043c"} />
+            <div className={styles.review_sub_view}>
+              <text className={styles.text}>{review?.reviewer}</text>
+              <Rate defaultValue={5} disabled />
+              <p>{review?.review}</p>
+            </div>
+          </div>
+        )
+      })}
 
       <button
         onClick={() => setopenReviewModal(true)}
@@ -269,7 +277,7 @@ const Restaurant = () => {
         onChangeInfo={(e) => setcustomerInfo(e.target.value)}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Restaurant;
+export default Restaurant
