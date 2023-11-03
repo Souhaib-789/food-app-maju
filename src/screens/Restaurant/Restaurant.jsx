@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react"
 import styles from "./Restaurant.module.css"
-import Product_Image_a from "../../assets/s2.png"
-import Product_Image_b from "../../assets/s1.jfif"
-import Product_Image_c from "../../assets/s3.jfif"
-import Product_Image_d from "../../assets/main_image.png"
 import TableImage from "../../assets/table.png"
 import { useDispatch, useSelector } from "react-redux"
 import CartActions from "../../redux/Actions/CartActions"
 import { HiUserCircle } from "react-icons/hi"
-import { Rate, List } from "antd"
+import { Rate } from "antd"
 import { FaCalendarCheck } from "react-icons/fa"
 import ReviewModal from "../../components/Modal/ReviewModal"
 import BookTableModal from "../../components/Modal/BookTableModal"
@@ -18,7 +14,6 @@ import apicall from "../../utils/axios"
 const Restaurant = () => {
   const location = useLocation()
   const id = location?.state?.id
-  console.log(id)
   const dispatch = useDispatch()
   const CART_ITEMS = useSelector((state) => state.CartReducer)
   const [restaurant, setRestaurant] = useState([])
@@ -50,29 +45,6 @@ const Restaurant = () => {
     }
     getRestaurantData()
   }, [data])
-
-  // const items = [
-  //   {
-  //     id: 1,
-  //     name: "Burger",
-  //     image: Product_Image_a,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Pasta",
-  //     image: Product_Image_b,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Steak",
-  //     image: Product_Image_c,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Choco Cake",
-  //     image: Product_Image_d,
-  //   },
-  // ]
 
   const addToCart = (e) => {
     dispatch(CartActions.AddtoCart(e))
@@ -145,7 +117,7 @@ const Restaurant = () => {
         // src="https://lalqila.com/hyderabad/wp-content/uploads/2015/03/Edited-2.jpg"
         src={restaurant?.image}
         class={`img-fluid ${styles.bg_image}`}
-        alt="..."
+        alt="restaurant image"
       ></img>
 
       <div className={styles.second_view}>
@@ -159,7 +131,11 @@ const Restaurant = () => {
                 data-aos="zoom-in-up"
                 data-aos-duration="2000"
               >
-                <img src={item?.image} className={styles.card_image} />
+                <img
+                  src={item?.image}
+                  alt="dish image"
+                  className={styles.card_image}
+                />
                 <div className={styles.card_text_view}>
                   <text className={styles.card_title}>{item?.name}</text>
                   <text style={{ color: "grey", fontSize: "12px" }}>

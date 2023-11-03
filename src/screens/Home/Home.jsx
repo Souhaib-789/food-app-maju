@@ -8,10 +8,6 @@ import { AiOutlineFileDone } from "react-icons/ai"
 import { RiSecurePaymentFill } from "react-icons/ri"
 import { FaShippingFast } from "react-icons/fa"
 import BannerImage from "../../assets/illustration.png"
-// import Product_Image_a from "../../assets/main_image.png"
-// import Product_Image_b from "../../assets/main_image3.png"
-// import Product_Image_c from "../../assets/rest.jfif"
-// import Product_Image_d from "../../assets/s2.png"
 import { useNavigate } from "react-router"
 import { GoLocation } from "react-icons/go"
 import apicall from "../../utils/axios"
@@ -41,29 +37,6 @@ const Home = () => {
   //     description:
   //       "Lorem ipsum is a placeholder text commonly used to demonstrate the dummy text",
   //     icon: <FaShippingFast size={50} color={"#1ef666af"} />,
-  //   },
-  // ]
-
-  // const items = [
-  //   {
-  //     id: 1,
-  //     name: "Burger",
-  //     image: Product_Image_a,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Pasta",
-  //     image: Product_Image_b,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Steak",
-  //     image: Product_Image_c,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Choco Cake",
-  //     image: Product_Image_d,
   //   },
   // ]
 
