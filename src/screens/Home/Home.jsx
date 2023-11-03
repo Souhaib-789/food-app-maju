@@ -71,7 +71,6 @@ const Home = () => {
     const getAllRestuarants = async () => {
       try {
         const response = await apicall.get(`/restaurants`)
-        console.log("response", response?.data?.data)
         setRestaurants(response?.data?.data)
       } catch (error) {
         console.log(error)
@@ -161,7 +160,10 @@ const Home = () => {
                   <button
                     className={styles.card_button}
                     onClick={() =>
-                      navigate(`restaurant/${item?.name}`, { state: item })
+                      navigate(
+                        `restaurant/${item?.name?.split(" ")?.join("")}`,
+                        { state: { id: item?._id } }
+                      )
                     }
                   >
                     VISIT

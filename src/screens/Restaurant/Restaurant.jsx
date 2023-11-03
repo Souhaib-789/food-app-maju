@@ -17,10 +17,12 @@ import apicall from "../../utils/axios"
 
 const Restaurant = () => {
   const location = useLocation()
-  console.log(location)
+  const id = location?.state?.id
+  console.log(id)
   const dispatch = useDispatch()
   const CART_ITEMS = useSelector((state) => state.CartReducer)
-  const [products, setproducts] = useState()
+  const [restaurant, setRestaurant] = useState([])
+  const [data, getData] = useState(false)
   const [openReviewModal, setopenReviewModal] = useState(false)
   const [name, setname] = useState()
   const [statement, setstatement] = useState()
@@ -37,37 +39,40 @@ const Restaurant = () => {
   const bookingID = Math.random().toString().substring(2, 8)
 
   useEffect(() => {
-    getResaurantData()
-  }, [])
+    const getRestaurantData = async () => {
+      try {
+        const response = await apicall.get(`/restaurant/${id}`)
+        console.log("response", response?.data?.data)
+        setRestaurant(response?.data?.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getRestaurantData()
+  }, [data])
 
-  const getResaurantData = () => {
-    // fetch('http://localhost:5000/api/restaurants')
-    // .then((response) => response.json())
-    // .then((json) => console.log(json.data))
-    // .catch((error) => console.error(error))
-  }
-  const items = [
-    {
-      id: 1,
-      name: "Burger",
-      image: Product_Image_a,
-    },
-    {
-      id: 2,
-      name: "Pasta",
-      image: Product_Image_b,
-    },
-    {
-      id: 3,
-      name: "Steak",
-      image: Product_Image_c,
-    },
-    {
-      id: 4,
-      name: "Choco Cake",
-      image: Product_Image_d,
-    },
-  ]
+  // const items = [
+  //   {
+  //     id: 1,
+  //     name: "Burger",
+  //     image: Product_Image_a,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Pasta",
+  //     image: Product_Image_b,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Steak",
+  //     image: Product_Image_c,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Choco Cake",
+  //     image: Product_Image_d,
+  //   },
+  // ]
 
   const addToCart = (e) => {
     dispatch(CartActions.AddtoCart(e))
@@ -83,23 +88,22 @@ const Restaurant = () => {
       alert("Please give rating")
     } else if (name && statement && rating) {
       try {
-        const response = await apicall.put(`/review`, {
-          id: location?.state?._id,
+        await apicall.put(`/review`, {
+          id,
           reviewer: name,
           review: statement,
           rating: rating,
         })
-        console.log("response", response)
-        // setReview(response?.data?.data)
+        getData(true)
+        setopenReviewModal(false)
+        setname("")
+        setstatement("")
+        setrating("")
+        // alert("Review submitted succesfully !")
       } catch (error) {
         console.log(error)
+        setopenReviewModal(false)
       }
-    } else {
-      setopenReviewModal(false)
-      setname()
-      setstatement()
-      setrating()
-      alert("Review submitted succesfully !")
     }
   }
 
@@ -139,7 +143,7 @@ const Restaurant = () => {
       </text>
       <img
         // src="https://lalqila.com/hyderabad/wp-content/uploads/2015/03/Edited-2.jpg"
-        src={location?.state?.image}
+        src={restaurant?.image}
         class={`img-fluid ${styles.bg_image}`}
         alt="..."
       ></img>
@@ -147,7 +151,7 @@ const Restaurant = () => {
       <div className={styles.second_view}>
         <text className={styles.sub_heading}>Available Items</text>
         <div className={styles.items_view}>
-          {location?.state?.dishes?.map((item, index) => {
+          {restaurant?.dishes?.map((item, index) => {
             return (
               <div
                 key={index}
@@ -180,7 +184,6 @@ const Restaurant = () => {
       <div className={styles.third_view}>
         <text className={styles.sub_heading}>Available Tables</text>
         <text className={styles.text}>
-          {" "}
           <span style={{ color: "#fe043c", fontWeight: "bold" }}>3</span> tables
           available
         </text>
@@ -231,7 +234,7 @@ const Restaurant = () => {
         Customers Reviews
       </text>
 
-      {location?.state?.reviews?.map((review, index) => {
+      {restaurant?.reviews?.map((review, index) => {
         return (
           <div key={index} className={styles.review_card}>
             <HiUserCircle size={35} color={"#fe043c"} />
