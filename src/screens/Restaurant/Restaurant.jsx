@@ -10,6 +10,7 @@ import ReviewModal from "../../components/Modal/ReviewModal"
 import BookTableModal from "../../components/Modal/BookTableModal"
 import { useLocation } from "react-router-dom"
 import apicall from "../../utils/axios"
+import { Container, Grid } from "@mui/material"
 
 const Restaurant = () => {
   const location = useLocation()
@@ -111,7 +112,7 @@ const Restaurant = () => {
         data-aos-duration="2000"
         className={styles.restaurant_name}
       >
-        {location?.state?.name}
+        {restaurant?.name}
       </text>
       <img
         // src="https://lalqila.com/hyderabad/wp-content/uploads/2015/03/Edited-2.jpg"
@@ -210,18 +211,26 @@ const Restaurant = () => {
         Customers Reviews
       </text>
 
-      {restaurant?.reviews?.map((review, index) => {
-        return (
-          <div key={index} className={styles.review_card}>
-            <HiUserCircle size={35} color={"#fe043c"} />
-            <div className={styles.review_sub_view}>
-              <text className={styles.text}>{review?.reviewer}</text>
-              <Rate defaultValue={5} disabled />
-              <p>{review?.review}</p>
+      {restaurant?.reviews?.length ? (
+        restaurant?.reviews?.map((review, index) => {
+          return (
+            <div key={index} className={styles.review_card}>
+              <HiUserCircle size={35} color={"#fe043c"} />
+              <div className={styles.review_sub_view}>
+                <text className={styles.text}>{review?.reviewer}</text>
+                <Rate defaultValue={review?.rating} disabled />
+                <p>{review?.review}</p>
+              </div>
             </div>
+          )
+        })
+      ) : (
+        <div className={styles.review_card}>
+          <div className={styles.review_sub_view}>
+            <p style={{ color: "grey" }}>No reviews yet.</p>
           </div>
-        )
-      })}
+        </div>
+      )}
 
       <button
         onClick={() => setopenReviewModal(true)}
