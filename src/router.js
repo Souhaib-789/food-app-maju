@@ -5,6 +5,8 @@ import Cart from "./screens/Cart/cart";
 import Navbar from "./components/Navbar/Navbar";
 import Restaurant from "./screens/Restaurant/Restaurant";
 import Footer from "./components/Footer/footer";
+import PaymentSuccess from "./screens/PaymentResponse/PaymentSuccess";
+import PaymentCancel from "./screens/PaymentResponse/PaymentCancel";
 
 export default function AppRouter() {
   return (
@@ -12,9 +14,16 @@ export default function AppRouter() {
       <Navbar />
       <Routes>
         <Route index path="/" element={<Home />} />
-        <Route path="restaurant/:name" element={<Restaurant />} />
-        <Route path="cart" element={<Cart />} />
-        <Route path="*" element={<p>Path not resolved</p>} />
+        <Route path="/restaurant/:name" element={<Restaurant />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/success" element={<PaymentSuccess />} />
+        <Route path="/cancel" element={<PaymentCancel />} />
+        <Route
+          path="*"
+          element={
+            <h1 style={{ textAlign: "center" }}>Error 404, Page not found</h1>
+          }
+        />
       </Routes>
       <Footer />
     </Router>

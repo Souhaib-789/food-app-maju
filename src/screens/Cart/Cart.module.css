@@ -1,108 +1,110 @@
-
-
 .container {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .div_one {
-    flex: 1;
-    padding: 2% 5%;
+  flex: 1;
+  padding: 2% 5%;
 }
 
 .div_two {
-    flex: 2;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
+  flex: 2;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .product_image {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
 }
 
 .product_card {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 10px;
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .card_text_view {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .total_text_view {
-    display: flex;
-    flex-direction: column;
-    margin: 8% 0%;
+  display: flex;
+  flex-direction: column;
+  margin: 8% 0%;
 }
 
 .counter_view {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 15%;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 15%;
+  align-items: center;
 }
 
 .input {
-    border-bottom: 1px solid grey;
-    border-radius: 0px;
-    margin: 5% 0%;
+  border-bottom: 1px solid grey;
+  border-radius: 0px;
+  margin: 5% 0%;
 }
 
 .main_button {
-    background-color: var(--secondary-color);
-    width: 150px;
-    height: 50px;
-    border: none;
-    border-radius: 1px;
-    justify-content: center;
-    color: var(--white-color);
-    margin: 30px 0px;
+  background-color: var(--secondary-color);
+  width: 150px;
+  height: 50px;
+  border: none;
+  border-radius: 1px;
+  justify-content: center;
+  color: var(--white-color);
+  margin: 30px 0px;
+}
+
+.main_button:disabled {
+  background-color: rgb(248, 159, 172);
+  opacity: 1;
 }
 
 @media screen and (max-width: 768px) {
 }
 
-@media only screen and (max-width: 900px) {}
-
-@media only screen and (max-width: 576px) {
-    
-.container {
-    display: flex;
-    flex-direction: column;
+@media only screen and (max-width: 900px) {
 }
 
-.product_image {
+@media only screen and (max-width: 576px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product_image {
     width: 60px;
     height: 60px;
     object-fit: contain;
-}
+  }
 
-.product_card {
-  display: flex;
+  .product_card {
+    display: flex;
     width: 95%;
     justify-content: space-between;
     margin-bottom: 25px;
-}
+  }
 
-.counter_view {
+  .counter_view {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     width: 20%;
     align-items: center;
-}
+  }
 }
