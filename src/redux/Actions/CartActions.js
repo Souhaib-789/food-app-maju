@@ -31,7 +31,7 @@ class CartActions {
         };
     };
 
-    static clear = () => {
+    static clearCart = () => {
         return {
             type: CartActionTypes.CLEAR_ADD_ITEMS,
         };
