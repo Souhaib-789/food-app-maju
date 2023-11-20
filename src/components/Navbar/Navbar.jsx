@@ -1,22 +1,21 @@
-import React, { useState } from "react";
-import styles from "./Navbar.module.css";
-import { RiShoppingBag3Fill } from "react-icons/ri";
-import Logo from '../../assets/logo.png'
-import { useNavigate } from "react-router";
-import { Button, Dropdown, Select } from "antd";
-
+import React, { useState } from "react"
+import styles from "./Navbar.module.css"
+import { RiShoppingBag3Fill } from "react-icons/ri"
+import Logo from "../../assets/logo.png"
+import { useNavigate } from "react-router"
+import { Button, Dropdown, Select } from "antd"
+import { useSelector } from "react-redux"
 
 const Navbar = () => {
+  const navigate = useNavigate()
 
-  const navigate = useNavigate();
+  const [cities, setCities] = useState(["Karachi", "Lahore", "Peshawar"])
+  const [selectedCity, setselectedCity] = useState("Select Your City")
+  const cartItems = useSelector((state) => state?.CartReducer?.cartItems)
 
-  const [cities, setCities] = useState(['Karachi', 'Lahore', 'Peshawar']);
-  const [selectedCity, setselectedCity] = useState('Select Your City');
- 
   const onSelectCity = (value) => {
     setselectedCity(value)
-  };
-
+  }
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -33,7 +32,10 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className={`collapse navbar-collapse ${styles.navbar_end_view}`} id="navbarSupportedContent">
+        <div
+          className={`collapse navbar-collapse ${styles.navbar_end_view}`}
+          id="navbarSupportedContent"
+        >
           {/* <ul
             className={`navbar-nav me-auto mb-2 mb-lg-0 ${styles.links_list}`}
           >
@@ -70,11 +72,9 @@ const Navbar = () => {
             aria-label="Search"
           /> */}
 
-        
-
           <Select
-          className={styles?.dropdown}
-          bordered={false}
+            className={styles?.dropdown}
+            bordered={false}
             value={selectedCity}
             onChange={onSelectCity}
             options={cities.map((city) => ({
@@ -82,19 +82,20 @@ const Navbar = () => {
               value: city,
             }))}
           />
-          
           <button
             className={`btn btn-outline-success ${styles.cart_button}`}
             type="submit"
-            onClick={() => navigate('cart')}
+            onClick={() => navigate("cart")}
           >
-            <RiShoppingBag3Fill color={'white'} size={25} />
+            <RiShoppingBag3Fill color={"white"} size={25} />
+            <small className={`${styles.cart_products_count}`}>
+              {cartItems?.length}
+            </small>
           </button>
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
-
+export default Navbar

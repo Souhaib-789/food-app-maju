@@ -17,7 +17,7 @@ export default function Cart() {
   const [paymentLoader, setPaymentLoader] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const cartItems = useSelector((state) => state?.CartReducer)
+  const cartItems = useSelector((state) => state?.CartReducer?.cartItems)
 
   const onPressPlaceOrder = () => {
     setModal(true)
@@ -61,6 +61,10 @@ export default function Cart() {
     setTotalCost(updatedTotalCost)
   }, [cartItems])
 
+  const addQuantity = (id) => {
+    dispatch(CartActions.increment(id))
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.div_one}>
@@ -74,7 +78,7 @@ export default function Cart() {
         </div>
 
         <button
-          disabled={!cartItems.length ? true : false}
+          disabled={!cartItems?.length ? true : false}
           className={styles.main_button}
           onClick={paymentCheckout}
         >
@@ -115,8 +119,12 @@ export default function Cart() {
               </div>
               <div className={styles.counter_view}>
                 <AiOutlineMinusSquare size={20} color={"black"} />
-                <text className={styles.quantity}>1</text>
-                <AiOutlinePlusSquare size={20} color={"black"} />
+                <text className={styles.quantity}>{}</text>
+                <AiOutlinePlusSquare
+                  size={20}
+                  color={"black"}
+                  onClick={() => addQuantity(item?._id)}
+                />
               </div>
               <RxCross2
                 color={"black"}
