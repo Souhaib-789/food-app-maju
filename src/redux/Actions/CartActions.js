@@ -17,17 +17,11 @@ class CartActions {
         };
     };
 
-    static increment = (id) => {
-        return {
-            type: CartActionTypes.INCREMENT,
-            payload: id
-        };
-    };
 
-    static decrement = (id) => {
+    static decrementQuantity = (data) => {
         return {
-            type: CartActionTypes.DECREMENT,
-            payload: id
+            type: CartActionTypes.DECREMENT_QUANTITY,
+            payload: data
         };
     };
 

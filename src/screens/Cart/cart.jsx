@@ -56,13 +56,17 @@ export default function Cart() {
 
   useEffect(() => {
     const updatedTotalCost = cartItems?.reduce((total, item) => {
-      return total + item?.price
+      return total + item?.price * item?.quantity
     }, 0)
     setTotalCost(updatedTotalCost)
   }, [cartItems])
 
-  const addQuantity = (id) => {
-    dispatch(CartActions.increment(id))
+  const addToCart = (e) => {
+    dispatch(CartActions.AddtoCart(e))
+  }
+
+  const decrementQuantity = (e) => {
+    dispatch(CartActions.decrementQuantity(e))
   }
 
   return (
@@ -115,15 +119,23 @@ export default function Cart() {
                 <text>
                   <b> {item?.name}</b>
                 </text>
-                <text>$ {item?.price}</text>
+                <text>
+                  $ {item?.price * (item?.quantity ? item?.quantity : 1)}
+                </text>
               </div>
               <div className={styles.counter_view}>
-                <AiOutlineMinusSquare size={20} color={"black"} />
-                <text className={styles.quantity}>{}</text>
+                <AiOutlineMinusSquare
+                  size={20}
+                  color={"black"}
+                  onClick={() => decrementQuantity(item)}
+                />
+                <text className={styles.quantity}>
+                  {item?.quantity ? item?.quantity : 1}
+                </text>
                 <AiOutlinePlusSquare
                   size={20}
                   color={"black"}
-                  onClick={() => addQuantity(item?._id)}
+                  onClick={() => addToCart(item)}
                 />
               </div>
               <RxCross2
