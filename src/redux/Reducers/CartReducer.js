@@ -37,7 +37,9 @@ export const CartReducer = (state = initialState, action) => {
             }
 
         case CartActionTypes.CLEAR_ADD_ITEMS:
-            return []
+            return {
+                cartItems: []
+            }
 
         case CartActionTypes.REMOVE_ITEM:
             const updatedArray = state?.cartItems?.filter((item) => {

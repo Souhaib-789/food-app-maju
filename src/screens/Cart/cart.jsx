@@ -15,38 +15,68 @@ export default function Cart() {
   const [Modal, setModal] = useState(false)
   const [totalCost, setTotalCost] = useState(0)
   const [paymentLoader, setPaymentLoader] = useState(false)
+  const [phone, setPhone] = useState("")
+  const [address, setAddress] = useState("")
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const cartItems = useSelector((state) => state?.CartReducer?.cartItems)
+  const [orderData, setOrderData] = useState({
+    email: "",
+    phone: "",
+    address: "",
+    products: cartItems,
+    isPaymentDone: false,
+  })
 
   const onPressPlaceOrder = () => {
     setModal(true)
   }
 
+  const orderHandler = (e) => {
+    const { name, value } = e.target
+    setOrderData({
+      ...orderData,
+      [name]: value,
+    })
+  }
+
   const paymentCheckout = async () => {
     setPaymentLoader(true)
     try {
-      // Publishable key
-      const stripe = await loadStripe(
-        "pk_test_51OCcJISGUAlRi8ebHTLdmQYoamW7krVDZaXm90fORUhOF5wUfwu5UkIdkyVVAH8AUR2S9i99fQnkNoLM688w9JLr00kQqAwaGc"
-      )
-
-      const response = await apicall.post(`/create-checkout-session`, {
-        cartItems,
-      })
-      const result = stripe.redirectToCheckout({
-        sessionId: response?.data?.id,
-      })
-
-      if (result.error) {
-        console.log("stripe error", result.error)
-      } else {
+      const orderResponse = await apicall.post(`/order`, orderData)
+      try {
+        // Publishable key
+        const stripe = await loadStripe(
+          "pk_test_51OCcJISGUAlRi8ebHTLdmQYoamW7krVDZaXm90fORUhOF5wUfwu5UkIdkyVVAH8AUR2S9i99fQnkNoLM688w9JLr00kQqAwaGc"
+        )
+        const response = await apicall.post(`/create-checkout-session`, {
+          cartItems,
+        })
+        const result = stripe.redirectToCheckout({
+          sessionId: response?.data?.id,
+        })
+        if (result.error) {
+          console.log("stripe error", result.error)
+        } else {
+          dispatch(CartActions.clearCart())
+          setOrderData({})
+          try {
+            await apicall.patch(`/order`, {
+              id: orderResponse?.data?.order?._id,
+              isPaymentDone: true,
+            })
+          } catch (error) {
+            setPaymentLoader(false)
+            console.log("updating-order error", error)
+          }
+        }
+      } catch (error) {
         setPaymentLoader(false)
-        dispatch(CartActions.clearCart())
+        console.log("stripe error", error)
       }
     } catch (error) {
       setPaymentLoader(false)
-      console.log("stripe error", error)
+      console.log("place-order error", error)
     }
   }
 
@@ -81,6 +111,32 @@ export default function Cart() {
           </text>
         </div>
 
+        <h5>Order Details</h5>
+        <Input
+          placeholder="Address"
+          bordered={false}
+          className={styles.input}
+          onChange={orderHandler}
+          type="text"
+          name="address"
+        />
+        <Input
+          placeholder="Email"
+          bordered={false}
+          className={styles.input}
+          onChange={orderHandler}
+          type="email"
+          name="email"
+        />
+        <Input
+          placeholder="Contact Number"
+          bordered={false}
+          className={styles.input}
+          onChange={orderHandler}
+          type="number"
+          name="phone"
+        />
+
         <button
           disabled={!cartItems?.length ? true : false}
           className={styles.main_button}
@@ -92,22 +148,6 @@ export default function Cart() {
             <CircularProgress sx={{ color: "white" }} size={20} />
           )}
         </button>
-
-        {/* <h5>Order Details</h5>
-        <Input
-          placeholder="Address"
-          bordered={false}
-          className={styles.input}
-        />
-        <Input
-          placeholder="Contact Number"
-          bordered={false}
-          className={styles.input}
-        />
-
-        <button className={styles.main_button} onClick={onPressPlaceOrder}>
-          Place Order
-        </button> */}
       </div>
 
       <div className={styles.div_two}>
