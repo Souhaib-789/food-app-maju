@@ -11,6 +11,7 @@ import BannerImage from "../../assets/illustration.png"
 import { useNavigate } from "react-router"
 import { GoLocation } from "react-icons/go"
 import apicall from "../../utils/axios"
+import { Skeleton } from "antd"
 
 const Home = () => {
   const [restaurants, setRestaurants] = useState([])
@@ -105,46 +106,80 @@ const Home = () => {
 
       <div className={styles.restaurants_view} id="pop">
         <text className={styles.sub_heading}>Available Restaurants</text>
-        <div className={styles.home_view_three}>
-          {restaurants?.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className={styles.restaurant_card}
-                data-aos="zoom-in-up"
-                data-aos-duration="2000"
-              >
-                <img src={item?.image} className={styles.card_image} />
-                <div className={styles.card_text_view}>
-                  <text className={styles.card_title}>{item?.name} </text>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "row",
-                    }}
-                  >
-                    <GoLocation size={15} color={"grey"} />
-                    <text className={styles.card_subtitle}>
-                      {item?.location}
-                    </text>
-                  </div>
 
-                  <button
-                    className={styles.card_button}
-                    onClick={() =>
-                      navigate(
-                        `restaurant/${item?.name?.split(" ")?.join("")}`,
-                        { state: { id: item?._id } }
-                      )
-                    }
+        <div className={styles.home_view_three}>
+          {!restaurants.length
+            ? Array.from({ length: 6 }).map((_, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={styles.restaurant_card}
+                    data-aos="zoom-in-up"
+                    data-aos-duration="2000"
                   >
-                    VISIT
-                  </button>
-                </div>
-              </div>
-            )
-          })}
+                    <Skeleton.Image
+                      active
+                      className={styles.card_image}
+                      size={100}
+                    />
+                    <div className={styles.card_text_view}>
+                      <Skeleton.Input active className={styles.card_title} />
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          flexDirection: "row",
+                        }}
+                      >
+                        <Skeleton.Input active />
+                      </div>
+                      <Skeleton.Input
+                        active
+                        className={styles.card_button_skeleton}
+                      />
+                    </div>
+                  </div>
+                )
+              })
+            : restaurants?.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={styles.restaurant_card}
+                    data-aos="zoom-in-up"
+                    data-aos-duration="2000"
+                  >
+                    <img src={item?.image} className={styles.card_image} />
+                    <div className={styles.card_text_view}>
+                      <text className={styles.card_title}>{item?.name} </text>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          flexDirection: "row",
+                        }}
+                      >
+                        <GoLocation size={15} color={"grey"} />
+                        <text className={styles.card_subtitle}>
+                          {item?.location}
+                        </text>
+                      </div>
+
+                      <button
+                        className={styles.card_button}
+                        onClick={() =>
+                          navigate(
+                            `restaurant/${item?.name?.split(" ")?.join("")}`,
+                            { state: { id: item?._id } }
+                          )
+                        }
+                      >
+                        VISIT
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
         </div>
       </div>
 
