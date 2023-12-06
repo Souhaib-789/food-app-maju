@@ -1,0 +1,18 @@
+.input_container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.auth_input {
+  border: 1px solid #de5d82 !important;
+}
+
+.user_button {
+  background-color: var(--secondary-color);
+  width: 75px;
+  height: 33px;
+  border: none;
+  border-radius: 5px;
+  color: var(--white-color);
+}

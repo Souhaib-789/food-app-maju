@@ -1,21 +1,27 @@
-import React, { useState } from "react"
-import styles from "./Navbar.module.css"
-import { RiShoppingBag3Fill } from "react-icons/ri"
-import Logo from "../../assets/logo.png"
-import { useNavigate } from "react-router"
-import { Button, Dropdown, Select } from "antd"
-import { useSelector } from "react-redux"
+import React, { useState } from "react";
+import styles from "./Navbar.module.css";
+import { RiShoppingBag3Fill } from "react-icons/ri";
+import Logo from "../../assets/logo.png";
+import { useNavigate } from "react-router";
+import { Button, Dropdown, Select } from "antd";
+import { useSelector } from "react-redux";
+import UserModal from "../Modal/UserModal";
 
 const Navbar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
 
-  const [cities, setCities] = useState(["Karachi", "Lahore", "Peshawar"])
-  const [selectedCity, setselectedCity] = useState("Select Your City")
-  const cartItems = useSelector((state) => state?.CartReducer?.cartItems)
+  const [cities, setCities] = useState(["Karachi", "Lahore", "Peshawar"]);
+  const [selectedCity, setselectedCity] = useState("Select Your City");
+  const cartItems = useSelector((state) => state?.CartReducer?.cartItems);
 
   const onSelectCity = (value) => {
-    setselectedCity(value)
-  }
+    setselectedCity(value);
+  };
+
+  const showUserModal = () => {
+    setModal(true);
+  };
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -72,6 +78,14 @@ const Navbar = () => {
             aria-label="Search"
           /> */}
 
+          <div className={styles.user_button_container}>
+            <button className={styles.user_button} onClick={showUserModal}>
+              Login
+            </button>
+            <button className={styles.user_button} onClick={showUserModal}>
+              Sign up
+            </button>
+          </div>
           <Select
             className={styles?.dropdown}
             bordered={false}
@@ -94,8 +108,15 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+      <UserModal
+        visible={modal}
+        onOk={() => {
+          setModal(false);
+        }}
+        onClose={() => setModal(false)}
+      />
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
