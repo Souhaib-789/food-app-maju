@@ -4,6 +4,8 @@ import styles from "./UserModal.module.css";
 import { FaFacebook } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import AuthModal from "./AuthModal";
+import { googleProvider, auth } from "../../utils/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const UserModal = (props) => {
   const [modal, setModal] = useState(props?.visible);
@@ -31,6 +33,16 @@ const UserModal = (props) => {
     props.onClose(false);
   };
 
+  const continueWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      console.log("Google Sign-In Successful", user);
+    } catch (error) {
+      console.error("Google Sign-In Error", error);
+    }
+  };
+
   return (
     <>
       <Modal
@@ -56,7 +68,10 @@ const UserModal = (props) => {
             </div>
             <div className={styles.continue_with_google_container}>
               <FaGoogle size={25} />
-              <button className={styles.continue_with_google}>
+              <button
+                className={styles.continue_with_google}
+                onClick={continueWithGoogle}
+              >
                 Continue with Google
               </button>
             </div>
