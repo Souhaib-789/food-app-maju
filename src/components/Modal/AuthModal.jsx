@@ -10,8 +10,11 @@ import { FaEye } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 import styles from "./AuthModal.module.css";
 import apicall from "../../utils/axios";
+import { useDispatch } from "react-redux";
+import UserActions from "../../redux/Actions/UserActions";
 
 const AuthModal = (props) => {
+  const dispatch = useDispatch();
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showSignupPassword, setShowSignupPassword] = useState(false);
   const [signupData, setSignupData] = useState({
@@ -57,7 +60,9 @@ const AuthModal = (props) => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      await apicall.post(`/login`, loginData);
+      const response = await apicall.post(`/login`, loginData);
+      dispatch(UserActions.setUser(response?.data));
+      props.closeModalAfterAuth();
     } catch (err) {
       console.log("login error", err);
     }
