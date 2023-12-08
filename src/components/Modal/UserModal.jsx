@@ -6,6 +6,7 @@ import { FaGoogle } from "react-icons/fa";
 import AuthModal from "./AuthModal";
 import { googleProvider, auth } from "../../utils/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import apicall from "../../utils/axios";
 
 const UserModal = (props) => {
   const [modal, setModal] = useState(props?.visible);
@@ -37,7 +38,21 @@ const UserModal = (props) => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      console.log("Google Sign-In Successful", user);
+
+      const googleAuthData = {
+        fullname: user?.displayName,
+        phone: user?.phoneNumber,
+        email: user?.email,
+        photo: user?.photo,
+        uid: user?.uid,
+        firebase_access_token: user?.accessToken,
+      };
+      try {
+        // const response = await apicall.post(`/google-auth`, googleAuthData);
+        // dispatch(UserActions.setUser(response?.data));
+      } catch (err) {
+        console.log("login error", err);
+      }
     } catch (error) {
       console.error("Google Sign-In Error", error);
     }

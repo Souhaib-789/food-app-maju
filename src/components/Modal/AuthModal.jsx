@@ -62,7 +62,6 @@ const AuthModal = (props) => {
     try {
       const response = await apicall.post(`/login`, loginData);
       dispatch(UserActions.setUser(response?.data));
-      props.closeModalAfterAuth();
     } catch (err) {
       console.log("login error", err);
     }
