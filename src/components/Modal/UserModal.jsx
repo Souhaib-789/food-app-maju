@@ -1,62 +1,64 @@
-import React, { useEffect, useState } from "react";
-import { Modal } from "antd";
-import styles from "./UserModal.module.css";
-import { FaFacebook } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
-import AuthModal from "./AuthModal";
-import { googleProvider, auth } from "../../utils/firebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import apicall from "../../utils/axios";
+import React, { useEffect, useState } from "react"
+import { Modal } from "antd"
+import styles from "./UserModal.module.css"
+import { FaFacebook } from "react-icons/fa"
+import { FaGoogle } from "react-icons/fa"
+import AuthModal from "./AuthModal"
+import { googleProvider, auth } from "../../utils/firebase"
+import { signInWithPopup } from "firebase/auth"
+import apicall from "../../utils/axios"
+import UserActions from "../../redux/Actions/UserActions"
+import { useDispatch } from "react-redux"
 
 const UserModal = (props) => {
-  const [modal, setModal] = useState(props?.visible);
-  const [authModal, setAuthModal] = useState(false);
-  const [login, setLogin] = useState(false);
-  const [signup, setSignup] = useState(false);
+  const [modal, setModal] = useState(props?.visible)
+  const [authModal, setAuthModal] = useState(false)
+  const [login, setLogin] = useState(false)
+  const [signup, setSignup] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    setModal(props?.visible);
-  }, [props?.visible]);
+    setModal(props?.visible)
+  }, [props?.visible])
 
   const showSignupModal = () => {
-    setAuthModal(true);
-    setModal(false);
-    setLogin(false);
-    setSignup(true);
-    props.onClose(false);
-  };
+    setAuthModal(true)
+    setModal(false)
+    setLogin(false)
+    setSignup(true)
+    props.onClose(false)
+  }
 
   const showLoginModal = () => {
-    setAuthModal(true);
-    setModal(false);
-    setLogin(true);
-    setSignup(false);
-    props.onClose(false);
-  };
+    setAuthModal(true)
+    setModal(false)
+    setLogin(true)
+    setSignup(false)
+    props.onClose(false)
+  }
 
   const continueWithGoogle = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-
+      const result = await signInWithPopup(auth, googleProvider)
+      const user = result.user
       const googleAuthData = {
         fullname: user?.displayName,
         phone: user?.phoneNumber,
         email: user?.email,
-        photo: user?.photo,
+        photo: user?.photoURL,
         uid: user?.uid,
         firebase_access_token: user?.accessToken,
-      };
+      }
       try {
-        // const response = await apicall.post(`/google-auth`, googleAuthData);
-        // dispatch(UserActions.setUser(response?.data));
+        const response = await apicall.post(`/google-auth`, googleAuthData)
+        dispatch(UserActions.setUser(response?.data))
       } catch (err) {
-        console.log("login error", err);
+        console.log("login error", err)
       }
     } catch (error) {
-      console.error("Google Sign-In Error", error);
+      console.error("Google Sign-In Error", error)
     }
-  };
+  }
 
   return (
     <>
@@ -111,13 +113,13 @@ const UserModal = (props) => {
       <AuthModal
         visible={authModal}
         onOk={() => {
-          setAuthModal(false);
+          setAuthModal(false)
         }}
         login={login}
         signup={signup}
       />
     </>
-  );
-};
+  )
+}
 
-export default UserModal;
+export default UserModal
