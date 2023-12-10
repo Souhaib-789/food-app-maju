@@ -108,7 +108,7 @@ export default function Cart() {
         <div className={styles.total_text_view}>
           <text>Total Cost</text>
           <text>
-            <b> $ {totalCost} </b>
+            <b> PKR {totalCost} </b>
           </text>
         </div>
 

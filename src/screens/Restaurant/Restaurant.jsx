@@ -145,7 +145,7 @@ const Restaurant = () => {
                     </text>
                     <div>
                       <text className={styles.card_title}>
-                        ${item?.price} /-
+                        PKR {item?.price} /-
                       </text>
                     </div>
                     <button
