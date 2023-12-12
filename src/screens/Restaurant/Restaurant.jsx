@@ -72,7 +72,6 @@ const Restaurant = () => {
         setname("")
         setstatement("")
         setrating("")
-        // alert("Review submitted succesfully !")
       } catch (error) {
         console.log(error)
         setopenReviewModal(false)
@@ -116,7 +115,6 @@ const Restaurant = () => {
           {restaurant?.name}
         </text>
         <img
-          // src="https://lalqila.com/hyderabad/wp-content/uploads/2015/03/Edited-2.jpg"
           src={restaurant?.image}
           class={`img-fluid ${styles.bg_image}`}
           alt="restaurant image"
