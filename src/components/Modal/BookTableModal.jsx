@@ -1,11 +1,8 @@
-import { Modal, DatePicker } from "antd";
-import styles from "./BookTableModal.module.css";
-import { MdTableRestaurant } from "react-icons/md";
-import { useState } from "react";
+import { Modal, DatePicker } from "antd"
+import styles from "./BookTableModal.module.css"
+import { MdTableRestaurant } from "react-icons/md"
 
 const BookTableModal = (props) => {
-  const [TableSeaters, setTableSeaters] = useState();
-
   const bookOptions = [
     {
       id: 1,
@@ -19,16 +16,15 @@ const BookTableModal = (props) => {
       id: 3,
       name: "12",
     },
-  ];
+  ]
 
   const onChangeDate = (date, dateString) => {
-    props?.selectedDate(dateString);
-  };
+    props.onChangeDate(dateString)
+  }
 
   const onPressSelectTable = (item) => {
-    props?.onStateChange(item);
-    setTableSeaters(item);
-  };
+    props.onSelectSeats(item.name)
+  }
 
   return (
     <Modal
@@ -42,7 +38,7 @@ const BookTableModal = (props) => {
       okButtonProps={{ style: { backgroundColor: "rgba(254,4,60, 0.9)" } }}
     >
       <div className={styles.modal_content_view}>
-        <DatePicker onChange={onChangeDate} />
+        <DatePicker name="date" onChange={onChangeDate} />
 
         <div className={styles.modalOptions_view}>
           {bookOptions.map((item, index) => (
@@ -50,7 +46,7 @@ const BookTableModal = (props) => {
               key={index}
               style={{
                 backgroundColor:
-                  TableSeaters?.name == item?.name
+                  props?.data?.no_of_seats == item?.name
                     ? "rgba(254,4,60, 0.9)"
                     : "white",
               }}
@@ -59,7 +55,7 @@ const BookTableModal = (props) => {
             >
               <MdTableRestaurant
                 color={
-                  TableSeaters?.name == item?.name
+                  props?.data?.no_of_seats == item?.name
                     ? "white"
                     : "rgba(254,4,60, 0.9)"
                 }
@@ -67,7 +63,8 @@ const BookTableModal = (props) => {
               />
               <text
                 style={{
-                  color: TableSeaters?.name == item?.name ? "white" : "black",
+                  color:
+                    props?.data?.no_of_seats == item?.name ? "white" : "black",
                   textAlign: "center",
                 }}
               >
@@ -79,31 +76,34 @@ const BookTableModal = (props) => {
 
         <input
           className={styles.inputx}
-          value={props?.name}
-          onChange={props?.onChangeName}
+          onChange={props.onChange}
           type="time"
           id={styles.timepicker}
+          name="time"
         />
         <input
           placeholder="Enter your name"
           className={styles.inputx}
-          value={props?.name}
-          onChange={props?.onChangeName}
+          onChange={props.onChange}
+          type="text"
+          name="name"
         />
         <input
           placeholder="Enter contact no."
           className={styles.inputx}
-          value={props?.contact}
-          onChange={props?.onChangeContact}
+          onChange={props.onChange}
+          type="number"
+          name="phone"
         />
         <input
-          placeholder="Any additional information"
+          placeholder="Any additional information (optional)"
           className={styles.input}
-          value={props?.info}
-          onChange={props?.onChangeInfo}
+          onChange={props.onChange}
+          type="text"
+          name="additional_info"
         />
       </div>
     </Modal>
-  );
-};
-export default BookTableModal;
+  )
+}
+export default BookTableModal
