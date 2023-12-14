@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react"
-import styles from "./Home.module.css"
-import MainImage from "../../assets/main_image.png"
-import MainImage3 from "../../assets/main_image3.png"
-import MainImage2 from "../../assets/chicken.png"
+import React, { useEffect, useState } from "react";
+import styles from "./Home.module.css";
+import MainImage from "../../assets/main_image.png";
+import MainImage3 from "../../assets/main_image3.png";
+import MainImage2 from "../../assets/chicken.png";
 
-import { AiOutlineFileDone } from "react-icons/ai"
-import { RiSecurePaymentFill } from "react-icons/ri"
-import { FaShippingFast } from "react-icons/fa"
-import BannerImage from "../../assets/illustration.png"
-import { useNavigate } from "react-router"
-import { GoLocation } from "react-icons/go"
-import apicall from "../../utils/axios"
-import { Skeleton } from "antd"
+import { AiOutlineFileDone } from "react-icons/ai";
+import { RiSecurePaymentFill } from "react-icons/ri";
+import { FaShippingFast } from "react-icons/fa";
+import BannerImage from "../../assets/illustration.png";
+import { useNavigate } from "react-router";
+import { GoLocation } from "react-icons/go";
+import apicall from "../../utils/axios";
+import { Skeleton } from "antd";
+import ErrorModal from "../../components/Modal/ErrorModal";
 
 const Home = () => {
-  const [restaurants, setRestaurants] = useState([])
-  const navigate = useNavigate()
+  const [restaurants, setRestaurants] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   // const info = [
   //   {
@@ -44,14 +47,16 @@ const Home = () => {
   useEffect(() => {
     const getAllRestuarants = async () => {
       try {
-        const response = await apicall.get(`/restaurants`)
-        setRestaurants(response?.data?.data)
+        const response = await apicall.get(`/restaurants`);
+        setRestaurants(response?.data?.data);
       } catch (error) {
-        console.log(error)
+        setModal(true);
+        if (error.message === "Network Error") return setError("Network Error");
+        setError(error?.response?.data?.message);
       }
-    }
-    getAllRestuarants()
-  }, [])
+    };
+    getAllRestuarants();
+  }, []);
 
   return (
     <div className={styles.main_div}>
@@ -108,78 +113,82 @@ const Home = () => {
         <text className={styles.sub_heading}>Available Restaurants</text>
 
         <div className={styles.home_view_three}>
-          {!restaurants.length
-            ? Array.from({ length: 6 }).map((_, index) => {
-                return (
-                  <div
-                    key={index}
-                    className={styles.restaurant_card}
-                    data-aos="zoom-in-up"
-                    data-aos-duration="2000"
-                  >
-                    <Skeleton.Image
+          {!restaurants.length && !error ? (
+            Array.from({ length: 6 }).map((_, index) => {
+              return (
+                <div
+                  key={index}
+                  className={styles.restaurant_card}
+                  data-aos="zoom-in-up"
+                  data-aos-duration="2000"
+                >
+                  <Skeleton.Image
+                    active
+                    className={styles.card_image}
+                    size={100}
+                  />
+                  <div className={styles.card_text_view}>
+                    <Skeleton.Input active className={styles.card_title} />
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "row",
+                      }}
+                    >
+                      <Skeleton.Input active />
+                    </div>
+                    <Skeleton.Input
                       active
-                      className={styles.card_image}
-                      size={100}
+                      className={styles.card_button_skeleton}
                     />
-                    <div className={styles.card_text_view}>
-                      <Skeleton.Input active className={styles.card_title} />
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          flexDirection: "row",
-                        }}
-                      >
-                        <Skeleton.Input active />
-                      </div>
-                      <Skeleton.Input
-                        active
-                        className={styles.card_button_skeleton}
-                      />
-                    </div>
                   </div>
-                )
-              })
-            : restaurants?.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className={styles.restaurant_card}
-                    data-aos="zoom-in-up"
-                    data-aos-duration="2000"
-                  >
-                    <img src={item?.image} className={styles.card_image} />
-                    <div className={styles.card_text_view}>
-                      <text className={styles.card_title}>{item?.name} </text>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          flexDirection: "row",
-                        }}
-                      >
-                        <GoLocation size={15} color={"grey"} />
-                        <text className={styles.card_subtitle}>
-                          {item?.location}
-                        </text>
-                      </div>
+                </div>
+              );
+            })
+          ) : error ? (
+            <h5 style={{ color: "red" }}>{error}</h5>
+          ) : (
+            restaurants?.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className={styles.restaurant_card}
+                  data-aos="zoom-in-up"
+                  data-aos-duration="2000"
+                >
+                  <img src={item?.image} className={styles.card_image} />
+                  <div className={styles.card_text_view}>
+                    <text className={styles.card_title}>{item?.name} </text>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "row",
+                      }}
+                    >
+                      <GoLocation size={15} color={"grey"} />
+                      <text className={styles.card_subtitle}>
+                        {item?.location}
+                      </text>
+                    </div>
 
-                      <button
-                        className={styles.card_button}
-                        onClick={() =>
-                          navigate(
-                            `restaurant/${item?.name?.split(" ")?.join("")}`,
-                            { state: { id: item?._id } }
-                          )
-                        }
-                      >
-                        VISIT
-                      </button>
-                    </div>
+                    <button
+                      className={styles.card_button}
+                      onClick={() =>
+                        navigate(
+                          `restaurant/${item?.name?.split(" ")?.join("")}`,
+                          { state: { id: item?._id } }
+                        )
+                      }
+                    >
+                      VISIT
+                    </button>
                   </div>
-                )
-              })}
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
 
@@ -206,8 +215,16 @@ const Home = () => {
           </text>
         </div>
       </div>
-    </div>
-  )
-}
 
-export default Home
+      <ErrorModal
+        visible={modal}
+        onOk={() => {
+          setModal(false);
+        }}
+        title={error}
+      />
+    </div>
+  );
+};
+
+export default Home;
