@@ -1,40 +1,46 @@
-.modal_text text{
-    font-size: 14px;
+.modal_text text {
+  font-size: 14px;
 }
 
-.modal_text{
-    display: flex;
-    flex-direction: column;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    margin: 5% 5%;
-    padding: 5%;
-    border-radius: 10px;
-    width: 30%;
-    align-items: center;
+.modal_text {
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: 5% 5%;
+  padding: 5%;
+  border-radius: 10px;
+  width: 30%;
+  align-items: center;
 }
-.modalOptions_view{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.modalOptions_view {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.input{
-    margin: 2% 0%;
-    padding: 10px;
-    border: 1px solid rgb(211, 199, 199);
-    border-radius: 5px;
-    outline: none;
-}
-
-.inputx{
-    margin: 2% 0%;
-    padding: 10px;
-    border: 1px solid rgb(211, 199, 199);
-    border-radius: 5px;
-    outline: none;
-    width: 50%;
+.input {
+  margin: 2% 0%;
+  padding: 10px;
+  border: 1px solid rgb(211, 199, 199);
+  border-radius: 5px;
+  outline: none;
 }
 
-.modal_content_view{
-    display: flex;
-    flex-direction: column;
+.inputx {
+  margin: 2% 0%;
+  padding: 10px;
+  border: 1px solid rgb(211, 199, 199);
+  border-radius: 5px;
+  outline: none;
+  width: 50%;
+}
+
+.modal_content_view {
+  display: flex;
+  flex-direction: column;
+}
+
+#timepicker:before {
+  content: "Time:";
+  margin-right: 0.6em;
+  color: #9d9d9d;
 }

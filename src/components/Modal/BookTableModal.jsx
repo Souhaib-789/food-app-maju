@@ -78,6 +78,13 @@ const BookTableModal = (props) => {
         </div>
 
         <input
+          className={styles.inputx}
+          value={props?.name}
+          onChange={props?.onChangeName}
+          type="time"
+          id={styles.timepicker}
+        />
+        <input
           placeholder="Enter your name"
           className={styles.inputx}
           value={props?.name}
