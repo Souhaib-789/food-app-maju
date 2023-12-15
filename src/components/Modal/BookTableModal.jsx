@@ -1,6 +1,6 @@
-import { Modal, DatePicker } from "antd"
-import styles from "./BookTableModal.module.css"
-import { MdTableRestaurant } from "react-icons/md"
+import { Modal, DatePicker } from "antd";
+import styles from "./BookTableModal.module.css";
+import { MdTableRestaurant } from "react-icons/md";
 
 const BookTableModal = (props) => {
   const bookOptions = [
@@ -16,15 +16,15 @@ const BookTableModal = (props) => {
       id: 3,
       name: "12",
     },
-  ]
+  ];
 
   const onChangeDate = (date, dateString) => {
-    props.onChangeDate(dateString)
-  }
+    props.onChangeDate(dateString);
+  };
 
   const onPressSelectTable = (item) => {
-    props.onSelectSeats(item.name)
-  }
+    props.onSelectSeats(item.name);
+  };
 
   return (
     <Modal
@@ -78,7 +78,14 @@ const BookTableModal = (props) => {
           className={styles.inputx}
           onChange={props.onChange}
           type="time"
-          id={styles.timepicker}
+          id={styles.timepickerFrom}
+          name="time"
+        />
+        <input
+          className={styles.inputx}
+          onChange={props.onChange}
+          type="time"
+          id={styles.timepickerTo}
           name="time"
         />
         <input
@@ -104,6 +111,6 @@ const BookTableModal = (props) => {
         />
       </div>
     </Modal>
-  )
-}
-export default BookTableModal
+  );
+};
+export default BookTableModal;
