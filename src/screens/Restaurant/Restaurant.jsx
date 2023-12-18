@@ -1,37 +1,38 @@
-import React, { useEffect, useState } from "react"
-import styles from "./Restaurant.module.css"
-import TableImage from "../../assets/table.png"
-import { useDispatch, useSelector } from "react-redux"
-import CartActions from "../../redux/Actions/CartActions"
-import { HiUserCircle } from "react-icons/hi"
-import { Rate } from "antd"
-import { FaCalendarCheck } from "react-icons/fa"
-import ReviewModal from "../../components/Modal/ReviewModal"
-import BookTableModal from "../../components/Modal/BookTableModal"
-import { useLocation } from "react-router-dom"
-import apicall from "../../utils/axios"
-import { Container, Grid } from "@mui/material"
-import SuccessModal from "../../components/Modal/SuccessModal"
-import ErrorModal from "../../components/Modal/ErrorModal"
+import React, { useEffect, useState } from "react";
+import styles from "./Restaurant.module.css";
+import TableImage from "../../assets/table.png";
+import { useDispatch, useSelector } from "react-redux";
+import CartActions from "../../redux/Actions/CartActions";
+import { HiUserCircle } from "react-icons/hi";
+import { Rate } from "antd";
+import { FaCalendarCheck } from "react-icons/fa";
+import ReviewModal from "../../components/Modal/ReviewModal";
+import BookTableModal from "../../components/Modal/BookTableModal";
+import { useLocation } from "react-router-dom";
+import apicall from "../../utils/axios";
+import { Container, Grid } from "@mui/material";
+import SuccessModal from "../../components/Modal/SuccessModal";
+import ErrorModal from "../../components/Modal/ErrorModal";
 
 const Restaurant = () => {
-  const location = useLocation()
-  const id = location?.state?.id
-  const dispatch = useDispatch()
-  const [restaurant, setRestaurant] = useState([])
-  const [data, getData] = useState(false)
-  const [openReviewModal, setopenReviewModal] = useState(false)
-  const [Modal, setModal] = useState(false)
-  const [errorModal, setErrorModal] = useState(false)
-  const [error, setError] = useState(false)
-  const [name, setname] = useState()
-  const [statement, setstatement] = useState()
-  const [rating, setrating] = useState(0)
-  const [openBookTableModal, setopenBookTableModal] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const location = useLocation();
+  const id = location?.state?.id;
+  const dispatch = useDispatch();
+  const [restaurant, setRestaurant] = useState([]);
+  const [data, getData] = useState(false);
+  const [openReviewModal, setopenReviewModal] = useState(false);
+  const [Modal, setModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+  const [error, setError] = useState("");
+  const [name, setname] = useState();
+  const [statement, setstatement] = useState();
+  const [rating, setrating] = useState(0);
+  const [openBookTableModal, setopenBookTableModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [TableData, setTableData] = useState(null)
-  const bookingID = Math.random().toString().substring(2, 8)
+  const [TableData, setTableData] = useState(null);
+  const bookingID = Math.random().toString().substring(2, 8);
 
   const [bookTableData, setBookTableData] = useState({
     date: "",
@@ -40,10 +41,10 @@ const Restaurant = () => {
     name: "",
     phone: "",
     additional_info: "",
-  })
+  });
 
   const handleBookTableChange = (e) => {
-    const { name, value, id } = e.target
+    const { name, value, id } = e.target;
     if (name === "time") {
       setBookTableData((prevData) => ({
         ...prevData,
@@ -51,113 +52,119 @@ const Restaurant = () => {
           ...prevData.time,
           [id.includes("timepickerFrom") ? "from" : "to"]: value,
         },
-      }))
+      }));
     } else {
       setBookTableData({
         ...bookTableData,
         [name]: value,
-      })
+      });
     }
-  }
+  };
 
   const onChangeDate = (date) => {
     setBookTableData({
       ...bookTableData,
       date,
-    })
-  }
+    });
+  };
   const onSelectSeats = (seats) => {
     setBookTableData({
       ...bookTableData,
       no_of_seats: seats,
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     const getRestaurantData = async () => {
       try {
-        const response = await apicall.get(`/restaurant/${id}`)
-        setRestaurant(response?.data?.data)
+        const response = await apicall.get(`/restaurant/${id}`);
+        setRestaurant(response?.data?.data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-    getRestaurantData()
-  }, [data])
+    };
+    getRestaurantData();
+  }, [data]);
 
   const addToCart = (e) => {
-    dispatch(CartActions.AddtoCart(e))
-    setModal(true)
-  }
+    dispatch(CartActions.AddtoCart(e));
+    setModal(true);
+  };
 
   const onSubmitReview = async () => {
     if (!name) {
-      setError("Please enter your name")
-      setErrorModal(true)
+      setError("Please enter your name");
+      setErrorModal(true);
     } else if (!statement) {
-      setError("Please enter review statement")
-      setErrorModal(true)
+      setError("Please enter review statement");
+      setErrorModal(true);
     } else if (!rating) {
-      setError("Please give rating")
-      setErrorModal(true)
+      setError("Please give rating");
+      setErrorModal(true);
     } else if (name && statement && rating) {
-      setLoading(true)
+      setLoading(true);
       try {
         await apicall.put(`/review`, {
           id,
           reviewer: name,
           review: statement,
           rating: rating,
-        })
-        getData(true)
-        setopenReviewModal(false)
-        setname("")
-        setstatement("")
-        setrating("")
-        setLoading(false)
+        });
+        getData(true);
+        setopenReviewModal(false);
+        setname("");
+        setstatement("");
+        setrating("");
+        setLoading(false);
       } catch (error) {
-        setopenReviewModal(false)
-        setErrorModal(true)
-        setLoading(false)
-        if (error.message === "Network Error") return setError("Network Error")
-        setError(error?.response?.data?.message)
+        setopenReviewModal(false);
+        setErrorModal(true);
+        setLoading(false);
+        if (error?.message === "Network Error")
+          return setError("Network Error");
+        setError(error?.response?.data?.message);
       }
     }
-  }
+  };
 
   const onPressBooktable = async () => {
     if (!bookTableData.name) {
-      setErrorModal(true)
-      setError("Please enter your name")
+      setErrorModal(true);
+      setError("Please enter your name");
     } else if (!bookTableData.phone) {
-      setErrorModal(true)
-      setError("Please enter contact number")
+      setErrorModal(true);
+      setError("Please enter contact number");
     } else if (!bookTableData.no_of_seats) {
-      setErrorModal(true)
-      setError("Please select table type")
+      setErrorModal(true);
+      setError("Please select table type");
     } else if (!bookTableData.date) {
-      setErrorModal(true)
-      setError("Please select date")
+      setErrorModal(true);
+      setError("Please select date");
     } else if (!bookTableData.time.from) {
-      setErrorModal(true)
-      setError("Please enter start time")
+      setErrorModal(true);
+      setError("Please enter start time");
     } else if (!bookTableData.time.to) {
-      setErrorModal(true)
-      setError("Please enter end time")
+      setErrorModal(true);
+      setError("Please enter end time");
     } else {
-      setLoading(true)
+      setLoading(true);
       try {
-        await apicall.post(`/book-table`, {
+        const response = await apicall.post(`/book-table`, {
           ...bookTableData,
           restaurant: id,
-        })
-        setLoading(false)
-      } catch (err) {
-        console.log("Book table error", err)
-        setLoading(true)
+        });
+        setLoading(false);
+        setModal(true);
+        setSuccessMessage(response?.data?.message);
+      } catch (error) {
+        setLoading(false);
+        setErrorModal(true);
+        if (error?.message === "Network Error")
+          return setError("Network Error");
+        setError(error?.response?.data?.message);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -209,7 +216,7 @@ const Restaurant = () => {
                     </button>
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         </div>
@@ -278,7 +285,7 @@ const Restaurant = () => {
                   <p>{review?.review}</p>
                 </div>
               </div>
-            )
+            );
           })
         ) : (
           <div className={styles.review_card}>
@@ -323,20 +330,22 @@ const Restaurant = () => {
       <SuccessModal
         visible={Modal}
         onOk={() => {
-          setModal(false)
+          setModal(false);
         }}
-        title="Item added to cart successfully"
+        title={
+          successMessage ? successMessage : "Item added to cart successfully"
+        }
       />
 
       <ErrorModal
         visible={errorModal}
         onOk={() => {
-          setErrorModal(false)
+          setErrorModal(false);
         }}
         title={error}
       />
     </>
-  )
-}
+  );
+};
 
-export default Restaurant
+export default Restaurant;
