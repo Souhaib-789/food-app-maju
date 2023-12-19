@@ -13,12 +13,14 @@ import { GoLocation } from "react-icons/go";
 import apicall from "../../utils/axios";
 import { Skeleton } from "antd";
 import ErrorModal from "../../components/Modal/ErrorModal";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [modal, setModal] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const city = useSelector((state) => state?.SelectCityReducer?.city);
 
   // const info = [
   //   {
@@ -47,7 +49,7 @@ const Home = () => {
   useEffect(() => {
     const getAllRestuarants = async () => {
       try {
-        const response = await apicall.get(`/restaurants`);
+        const response = await apicall.get(`/restaurants?city=${city}`);
         setRestaurants(response?.data?.data);
       } catch (error) {
         setModal(true);
@@ -56,7 +58,7 @@ const Home = () => {
       }
     };
     getAllRestuarants();
-  }, []);
+  }, [city]);
 
   return (
     <div className={styles.main_div}>

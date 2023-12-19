@@ -4,21 +4,23 @@ import { RiShoppingBag3Fill } from "react-icons/ri";
 import Logo from "../../assets/logo.png";
 import { useNavigate, useLocation } from "react-router";
 import { Button, Dropdown, Select } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserModal from "../Modal/UserModal";
+import SelectCityActions from "../../redux/Actions/SelectCityActions";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
 
-  const [cities, setCities] = useState(["Karachi", "Lahore", "Peshawar"]);
+  const [cities, setCities] = useState(["Karachi", "Lahore", "Islamabad"]);
   const [selectedCity, setselectedCity] = useState("Select Your City");
   const cartItems = useSelector((state) => state?.CartReducer?.cartItems);
   const userData = useSelector((state) => state?.UserReducer?.user);
   const location = useLocation();
-
+  const dispatch = useDispatch();
   const onSelectCity = (value) => {
     setselectedCity(value);
+    dispatch(SelectCityActions.setCity(value));
   };
 
   const showUserModal = () => {
