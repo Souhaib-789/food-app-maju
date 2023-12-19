@@ -14,6 +14,7 @@ const AllReducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage: storage,
+  blacklist: "SelectCityReducer",
 };
 const persistedReducer = persistReducer(persistConfig, AllReducers);
 const myStore = createStore(persistedReducer);
