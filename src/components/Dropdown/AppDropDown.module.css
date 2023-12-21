@@ -1,0 +1,8 @@
+.menu_content {
+  background-color: white;
+  border: 1px solid silver;
+  width: 120px;
+  padding: 10px 10px 0px 10px;
+  position: absolute;
+  right: 15px;
+}

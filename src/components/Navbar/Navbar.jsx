@@ -1,31 +1,32 @@
-import React, { useState } from "react";
-import styles from "./Navbar.module.css";
-import { RiShoppingBag3Fill } from "react-icons/ri";
-import Logo from "../../assets/logo.png";
-import { useNavigate, useLocation } from "react-router";
-import { Button, Dropdown, Select } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import UserModal from "../Modal/UserModal";
-import SelectCityActions from "../../redux/Actions/SelectCityActions";
+import React, { useState } from "react"
+import styles from "./Navbar.module.css"
+import { RiShoppingBag3Fill } from "react-icons/ri"
+import Logo from "../../assets/logo.png"
+import { useNavigate, useLocation } from "react-router"
+import { Button, Dropdown, Select } from "antd"
+import { useDispatch, useSelector } from "react-redux"
+import UserModal from "../Modal/UserModal"
+import SelectCityActions from "../../redux/Actions/SelectCityActions"
+import AppDropDown from "../Dropdown/AppDropDown"
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const [modal, setModal] = useState(false);
+  const navigate = useNavigate()
+  const [modal, setModal] = useState(false)
 
-  const [cities, setCities] = useState(["Karachi", "Lahore", "Islamabad"]);
-  const [selectedCity, setselectedCity] = useState("Select Your City");
-  const cartItems = useSelector((state) => state?.CartReducer?.cartItems);
-  const userData = useSelector((state) => state?.UserReducer?.user);
-  const location = useLocation();
-  const dispatch = useDispatch();
+  const [cities, setCities] = useState(["Karachi", "Lahore", "Islamabad"])
+  const [selectedCity, setselectedCity] = useState("Select Your City")
+  const cartItems = useSelector((state) => state?.CartReducer?.cartItems)
+  const userData = useSelector((state) => state?.UserReducer?.user)
+  const location = useLocation()
+  const dispatch = useDispatch()
   const onSelectCity = (value) => {
-    setselectedCity(value);
-    dispatch(SelectCityActions.setCity(value));
-  };
+    setselectedCity(value)
+    dispatch(SelectCityActions.setCity(value))
+  }
 
   const showUserModal = () => {
-    setModal(true);
-  };
+    setModal(true)
+  }
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -117,18 +118,20 @@ const Navbar = () => {
                 {cartItems?.length}
               </small>
             </button>
+
+            <AppDropDown />
           </div>
         </div>
       </div>
       <UserModal
         visible={modal}
         onOk={() => {
-          setModal(false);
+          setModal(false)
         }}
         onClose={() => setModal(false)}
       />
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
