@@ -7,6 +7,7 @@ import Restaurant from "./screens/Restaurant/Restaurant";
 import Footer from "./components/Footer/footer";
 import PaymentSuccess from "./screens/PaymentResponse/PaymentSuccess";
 import PaymentCancel from "./screens/PaymentResponse/PaymentCancel";
+import Profile from "./screens/Profile/Profile";
 
 export default function AppRouter() {
   return (
@@ -18,6 +19,7 @@ export default function AppRouter() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/success" element={<PaymentSuccess />} />
         <Route path="/cancel" element={<PaymentCancel />} />
+        <Route path="/profile" element={<Profile />} />
         <Route
           path="*"
           element={
