@@ -5,14 +5,23 @@ import apicall from "../../utils/axios";
 import UserActions from "../../redux/Actions/UserActions";
 import { Spinner } from "react-bootstrap";
 import { Input } from "antd";
-import { RiLockPasswordFill } from "react-icons/ri";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import SuccessModal from "../../components/Modal/SuccessModal";
+import ErrorModal from "../../components/Modal/ErrorModal";
 
 const Profile = () => {
   const userData = useSelector((state) => state?.UserReducer?.user);
   const dispatch = useDispatch();
 
   const [newPassword, setNewPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState(
+    userData?.user?.password
+  );
+  const [modal, setModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorModal, setErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [profileLoader, setProfileLoader] = useState(false);
   const [passwordLoader, setPasswordLoader] = useState(false);
   const [showPassword, setShowPassword] = useState({
@@ -43,24 +52,39 @@ const Profile = () => {
       };
       dispatch(UserActions.setUser(data));
       setProfileLoader(false);
+      setModal(true);
+      setSuccessMessage(response?.data?.message);
     } catch (error) {
-      console.log("updating user error", error);
       setProfileLoader(false);
+      setErrorModal(true);
+      if (error.message === "Network Error")
+        return setErrorMessage("Network Error");
+      setErrorMessage(error?.response?.data?.message);
     }
   };
 
   const updatePassword = async () => {
-    setPasswordLoader(true);
-    try {
-      const response = await apicall.patch(`/user`, {
-        email: user?.email,
-        currentPassword: user?.password,
-        newPassword,
-      });
-      setPasswordLoader(false);
-    } catch (error) {
-      setPasswordLoader(false);
-      console.log("updating password error", error);
+    if (!currentPassword || !newPassword) {
+      setErrorModal(true);
+      setErrorMessage("Required fields are missing");
+    } else {
+      setPasswordLoader(true);
+      try {
+        const response = await apicall.patch(`/user`, {
+          email: user?.email,
+          currentPassword,
+          newPassword,
+        });
+        setPasswordLoader(false);
+        setModal(true);
+        setSuccessMessage(response?.data?.message);
+      } catch (error) {
+        setPasswordLoader(false);
+        setErrorModal(true);
+        if (error.message === "Network Error")
+          return setErrorMessage("Network Error");
+        setErrorMessage(error?.response?.data?.message);
+      }
     }
   };
 
@@ -129,7 +153,7 @@ const Profile = () => {
           size="large"
           placeholder="Current Password"
           className={styles.input}
-          onChange={userInputHandler}
+          onChange={(e) => setCurrentPassword(e.target.value)}
           name="password"
         />
 
@@ -168,6 +192,23 @@ const Profile = () => {
           {passwordLoader ? <Spinner animation="border" size="sm" /> : "Update"}
         </button>
       </div>
+
+      <SuccessModal
+        visible={modal}
+        onOk={() => {
+          setModal(false);
+          setSuccessMessage("");
+        }}
+        title={successMessage}
+      />
+
+      <ErrorModal
+        visible={errorModal}
+        onOk={() => {
+          setErrorModal(false);
+        }}
+        title={errorMessage}
+      />
     </>
   );
 };
