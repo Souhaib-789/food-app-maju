@@ -8,10 +8,9 @@ class UserActions {
     };
   };
 
-  static logoutUser = (user) => {
+  static logoutUser = () => {
     return {
       type: UserActionTypes.LOGIN_USER,
-      payload: user,
     };
   };
 }

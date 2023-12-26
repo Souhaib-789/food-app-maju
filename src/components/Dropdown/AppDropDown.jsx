@@ -2,10 +2,13 @@ import { useState } from "react";
 import user from "../../assets/user.png";
 import styles from "./AppDropDown.module.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import UserActions from "../../redux/Actions/UserActions";
 
 const AppDropDown = () => {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const data = [
     {
@@ -25,11 +28,7 @@ const AppDropDown = () => {
     {
       action: () => {
         setShowMenu(false);
-        setTimeout(() => {
-          navigate("/");
-          localStorage.clear();
-          window.location.reload();
-        }, 500);
+        dispatch(UserActions.logoutUser());
       },
       name: "Logout",
     },
