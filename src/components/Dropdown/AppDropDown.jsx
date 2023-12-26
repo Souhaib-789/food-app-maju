@@ -24,8 +24,12 @@ const AppDropDown = () => {
     },
     {
       action: () => {
-        navigate("/profile");
         setShowMenu(false);
+        setTimeout(() => {
+          navigate("/");
+          localStorage.clear();
+          window.location.reload();
+        }, 500);
       },
       name: "Logout",
     },
