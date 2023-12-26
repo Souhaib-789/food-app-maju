@@ -1,5 +1,6 @@
 import { useState } from "react";
-import user from "../../assets/user.png";
+// import user from "../../assets/user.png";
+import user from "../../assets/user-removebg-preview.png";
 import styles from "./AppDropDown.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -34,7 +35,7 @@ const AppDropDown = () => {
     <div className="position-relative cursor-pointer">
       <img
         onClick={() => setShowMenu(!showMenu)}
-        height={50}
+        height={65}
         src={user}
         alt="user"
       />
