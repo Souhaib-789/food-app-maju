@@ -1,104 +1,104 @@
-import { Input } from "antd"
-import React, { useEffect, useState } from "react"
-import styles from "./Cart.module.css"
-import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai"
-import { RxCross2 } from "react-icons/rx"
-import SuccessModal from "../../components/Modal/SuccessModal"
-import { useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import CartActions from "../../redux/Actions/CartActions"
-import { loadStripe } from "@stripe/stripe-js"
-import apicall from "../../utils/axios"
-import { CircularProgress } from "@mui/material"
-import UserModal from "../../components/Modal/UserModal"
+import { Input } from "antd";
+import React, { useEffect, useState } from "react";
+import styles from "./Cart.module.css";
+import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
+import { RxCross2 } from "react-icons/rx";
+import SuccessModal from "../../components/Modal/SuccessModal";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import CartActions from "../../redux/Actions/CartActions";
+import { loadStripe } from "@stripe/stripe-js";
+import apicall from "../../utils/axios";
+import { CircularProgress } from "@mui/material";
+import UserModal from "../../components/Modal/UserModal";
 
 export default function Cart() {
-  const [authModal, setAuthModal] = useState(false)
-  const [totalCost, setTotalCost] = useState(0)
-  const [paymentLoader, setPaymentLoader] = useState(false)
+  const [authModal, setAuthModal] = useState(false);
+  const [totalCost, setTotalCost] = useState(0);
+  const [paymentLoader, setPaymentLoader] = useState(false);
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const cartItems = useSelector((state) => state?.CartReducer?.cartItems)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state?.CartReducer?.cartItems);
   const [orderData, setOrderData] = useState({
     email: "",
     phone: "",
     address: "",
     products: cartItems,
     isPaymentDone: false,
-  })
+  });
 
-  const userData = useSelector((state) => state?.UserReducer?.user)
+  const userData = useSelector((state) => state?.UserReducer?.user);
   const orderHandler = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setOrderData({
       ...orderData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const paymentCheckout = async () => {
     if (userData?.token) {
-      setPaymentLoader(true)
+      setPaymentLoader(true);
       try {
-        const orderResponse = await apicall.post(`/order`, orderData)
+        const orderResponse = await apicall.post(`/order`, orderData);
         try {
           // Publishable key
           const stripe = await loadStripe(
             "pk_test_51OCcJISGUAlRi8ebHTLdmQYoamW7krVDZaXm90fORUhOF5wUfwu5UkIdkyVVAH8AUR2S9i99fQnkNoLM688w9JLr00kQqAwaGc"
-          )
+          );
           const response = await apicall.post(`/create-checkout-session`, {
             cartItems,
-          })
+          });
           const result = stripe.redirectToCheckout({
             sessionId: response?.data?.id,
-          })
+          });
           if (result.error) {
-            console.log("stripe error", result.error)
+            console.log("stripe error", result.error);
           } else {
-            dispatch(CartActions.clearCart())
-            setOrderData({})
+            dispatch(CartActions.clearCart());
+            setOrderData({});
             try {
               await apicall.patch(`/order`, {
                 id: orderResponse?.data?.order?._id,
                 isPaymentDone: true,
-              })
+              });
             } catch (error) {
-              setPaymentLoader(false)
-              console.log("updating-order error", error)
+              setPaymentLoader(false);
+              console.log("updating-order error", error);
             }
           }
         } catch (error) {
-          setPaymentLoader(false)
-          console.log("stripe error", error)
+          setPaymentLoader(false);
+          console.log("stripe error", error);
         }
       } catch (error) {
-        setPaymentLoader(false)
-        console.log("place-order error", error)
+        setPaymentLoader(false);
+        console.log("place-order error", error);
       }
     } else {
-      setAuthModal(true)
+      setAuthModal(true);
     }
-  }
+  };
 
   const removeFromCart = (id) => {
-    dispatch(CartActions.removeFromCart(id))
-  }
+    dispatch(CartActions.removeFromCart(id));
+  };
 
   useEffect(() => {
     const updatedTotalCost = cartItems?.reduce((total, item) => {
-      return total + item?.price * item?.quantity
-    }, 0)
-    setTotalCost(updatedTotalCost)
-  }, [cartItems])
+      return total + item?.price * item?.quantity;
+    }, 0);
+    setTotalCost(updatedTotalCost);
+  }, [cartItems]);
 
   const addToCart = (e) => {
-    dispatch(CartActions.AddtoCart(e))
-  }
+    dispatch(CartActions.AddtoCart(e));
+  };
 
   const decrementQuantity = (e) => {
-    dispatch(CartActions.decrementQuantity(e))
-  }
+    dispatch(CartActions.decrementQuantity(e));
+  };
 
   return (
     <div className={styles.container}>
@@ -198,10 +198,10 @@ export default function Cart() {
       <UserModal
         visible={authModal}
         onOk={() => {
-          setAuthModal(false)
+          setAuthModal(false);
         }}
         onClose={() => setAuthModal(false)}
       />
     </div>
-  )
+  );
 }

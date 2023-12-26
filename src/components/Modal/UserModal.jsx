@@ -9,12 +9,16 @@ import { signInWithPopup } from "firebase/auth";
 import apicall from "../../utils/axios";
 import UserActions from "../../redux/Actions/UserActions";
 import { useDispatch } from "react-redux";
+import ErrorModal from "./ErrorModal";
 
 const UserModal = (props) => {
   const [modal, setModal] = useState(props?.visible);
   const [authModal, setAuthModal] = useState(false);
   const [login, setLogin] = useState(false);
   const [signup, setSignup] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+  const [error, setError] = useState("");
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -52,8 +56,13 @@ const UserModal = (props) => {
       try {
         const response = await apicall.post(`/google-auth`, googleAuthData);
         dispatch(UserActions.setUser(response?.data));
+        setModal(false);
       } catch (err) {
-        console.log("login error", err);
+        setModal(false);
+        setErrorModal(true);
+        if (error?.message === "Network Error")
+          return setError("Network Error");
+        setError(error?.response?.data?.message);
       }
     } catch (error) {
       console.error("Google Sign-In Error", error);
@@ -121,6 +130,14 @@ const UserModal = (props) => {
         }}
         login={login}
         signup={signup}
+      />
+
+      <ErrorModal
+        visible={errorModal}
+        onOk={() => {
+          setErrorModal(false);
+        }}
+        title={error}
       />
     </>
   );

@@ -1,6 +1,5 @@
 import { useState } from "react";
-// import user from "../../assets/user.png";
-import user from "../../assets/user-removebg-preview.png";
+import user from "../../assets/user.png";
 import styles from "./AppDropDown.module.css";
 import { useNavigate } from "react-router-dom";
 
