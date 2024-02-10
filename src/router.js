@@ -8,6 +8,7 @@ import Footer from "./components/Footer/footer";
 import PaymentSuccess from "./screens/PaymentResponse/PaymentSuccess";
 import PaymentCancel from "./screens/PaymentResponse/PaymentCancel";
 import Profile from "./screens/Profile/Profile";
+import Orders from "./screens/Orders/Orders";
 
 export default function AppRouter() {
   return (
@@ -20,6 +21,7 @@ export default function AppRouter() {
         <Route path="/success" element={<PaymentSuccess />} />
         <Route path="/cancel" element={<PaymentCancel />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/orders" element={<Orders />} />
         <Route
           path="*"
           element={

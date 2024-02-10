@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const baseURL = "http://localhost:5000/api";
-const baseURL = "https://food-app-jinnah-league-backend-dhj1ls492-hamzailyas237.vercel.app/api";
+const baseURL = "http://localhost:5000/api";
+// const baseURL = "https://food-app-jinnah-league-backend-dhj1ls492-hamzailyas237.vercel.app/api";
 const apicall = axios.create({
   baseURL,
   headers: {

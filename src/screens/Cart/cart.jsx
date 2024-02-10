@@ -20,6 +20,7 @@ export default function Cart() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const cartItems = useSelector((state) => state?.CartReducer?.cartItems)
+
   const [orderData, setOrderData] = useState({
     email: "",
     phone: "",
@@ -41,7 +42,10 @@ export default function Cart() {
     if (userData?.token) {
       setPaymentLoader(true)
       try {
-        const orderResponse = await apicall.post(`/order`, orderData)
+        const orderResponse = await apicall.post(`/order`, {
+          ...orderData,
+          userId: userData?.user?._id,
+        })
         try {
           // Publishable key
           const stripe = await loadStripe(
