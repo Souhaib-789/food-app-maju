@@ -1,7 +1,7 @@
-import { Modal, DatePicker } from "antd"
-import styles from "./BookTableModal.module.css"
-import { MdTableRestaurant } from "react-icons/md"
-import Spinner from "react-bootstrap/Spinner"
+import { Modal, DatePicker } from "antd";
+import styles from "./BookTableModal.module.css";
+import { MdTableRestaurant } from "react-icons/md";
+import Spinner from "react-bootstrap/Spinner";
 
 const BookTableModal = (props) => {
   const bookOptions = [
@@ -17,15 +17,15 @@ const BookTableModal = (props) => {
       id: 3,
       name: "12",
     },
-  ]
+  ];
 
   const onChangeDate = (date, dateString) => {
-    props.onChangeDate(dateString)
-  }
+    props.onChangeDate(dateString);
+  };
 
   const onPressSelectTable = (item) => {
-    props.onSelectSeats(item.name)
-  }
+    props.onSelectSeats(item.name);
+  };
 
   return (
     <Modal
@@ -114,6 +114,6 @@ const BookTableModal = (props) => {
         />
       </div>
     </Modal>
-  )
-}
-export default BookTableModal
+  );
+};
+export default BookTableModal;

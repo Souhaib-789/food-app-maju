@@ -1,3 +1,5 @@
-h1 {
-  text-align: center;
+.payment_success_error_container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }

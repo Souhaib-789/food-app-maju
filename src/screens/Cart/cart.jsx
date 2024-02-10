@@ -20,7 +20,6 @@ export default function Cart() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const cartItems = useSelector((state) => state?.CartReducer?.cartItems)
-
   const [orderData, setOrderData] = useState({
     email: "",
     phone: "",

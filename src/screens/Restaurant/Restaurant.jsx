@@ -80,7 +80,9 @@ const Restaurant = () => {
         const response = await apicall.get(`/restaurant/${id}`);
         setRestaurant(response?.data?.data);
       } catch (error) {
-        console.log(error);
+        setErrorModal(true);
+        if (error.message === "Network Error") return setError("Network Error");
+        setError(error?.response?.data?.message);
       }
     };
     getRestaurantData();
@@ -179,7 +181,7 @@ const Restaurant = () => {
         <img
           src={restaurant?.image}
           class={`img-fluid ${styles.bg_image}`}
-          alt="restaurant image"
+          alt=""
         ></img>
 
         <div className={styles.second_view}>

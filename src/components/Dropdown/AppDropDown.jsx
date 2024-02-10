@@ -2,10 +2,13 @@ import { useState } from "react";
 import user from "../../assets/user.png";
 import styles from "./AppDropDown.module.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import UserActions from "../../redux/Actions/UserActions";
 
 const AppDropDown = () => {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const data = [
     {
@@ -24,8 +27,8 @@ const AppDropDown = () => {
     },
     {
       action: () => {
-        navigate("/profile");
         setShowMenu(false);
+        dispatch(UserActions.logoutUser());
       },
       name: "Logout",
     },
@@ -34,7 +37,7 @@ const AppDropDown = () => {
     <div className="position-relative cursor-pointer">
       <img
         onClick={() => setShowMenu(!showMenu)}
-        height={50}
+        height={65}
         src={user}
         alt="user"
       />
