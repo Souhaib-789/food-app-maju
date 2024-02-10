@@ -12,6 +12,7 @@ export const UserReducer = (state = INITIAL_STATE, action) => {
         user: action.payload,
       };
     case UserActionTypes.LOGOUT_USER:
+      action.payload('/')
       return {
         user: {},
       };
